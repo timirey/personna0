@@ -34,6 +34,7 @@ return [
         'remove' => 'Remove',
         'size' => 'Size',
         'added' => 'Added to your cart.',
+        'insufficient' => "Sorry, we don't have enough stock for :name.",
     ],
 
     'checkout' => [

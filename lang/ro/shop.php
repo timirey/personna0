@@ -34,6 +34,7 @@ return [
         'remove' => 'Elimină',
         'size' => 'Mărime',
         'added' => 'Adăugat în coș.',
+        'insufficient' => 'Ne pare rău, nu avem suficient stoc pentru :name.',
     ],
 
     'checkout' => [
