@@ -4,10 +4,16 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LocaleRedirectController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // Root: detect locale and redirect to /{locale}
 Route::get('/', LocaleRedirectController::class);
+
+// SEO endpoints — registered before the {locale} group so they aren't
+// swallowed as a locale segment.
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 // Locale-prefixed storefront. Every public URL lives under /{ro|ru|en}/...
 Route::prefix('{locale}')->middleware('setlocale')->group(function () {
