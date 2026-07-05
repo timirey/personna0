@@ -1,20 +1,16 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
-import tailwindcss from '@tailwindcss/vite';
 
+// Storefront assets only. The Filament admin ships its own precompiled
+// Tailwind/Alpine bundle, so we keep the public site deliberately lean:
+// hand-written CSS + self-hosted variable fonts (Fraunces + Manrope),
+// no Tailwind, near-zero JS — tuned for PageSpeed / Core Web Vitals.
 export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
         }),
-        tailwindcss(),
     ],
     server: {
         watch: {
