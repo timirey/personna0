@@ -34,7 +34,7 @@
     <meta name="twitter:card" content="summary_large_image">
     @stack('og')
 
-    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
