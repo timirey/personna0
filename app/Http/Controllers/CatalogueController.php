@@ -28,7 +28,7 @@ class CatalogueController extends Controller
         return view('store.catalogue', compact('products', 'categories', 'activeCategory'));
     }
 
-    public function show(string $slug): View
+    public function show(string $locale, string $slug): View
     {
         $product = Product::query()
             ->active()

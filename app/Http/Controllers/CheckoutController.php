@@ -100,7 +100,7 @@ class CheckoutController extends Controller
         return redirect()->route('order.success', [$locale, $order->reference]);
     }
 
-    public function success(string $reference): View
+    public function success(string $locale, string $reference): View
     {
         $order = Order::where('reference', $reference)->with('items')->firstOrFail();
 
