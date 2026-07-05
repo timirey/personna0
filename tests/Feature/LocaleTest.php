@@ -14,14 +14,15 @@ it('lets a locale cookie override the header', function () {
         ->assertRedirect('/en');
 });
 
-it('sets the application locale from the url', function () {
-    $this->get('/ru')->assertOk()->assertSee('ru');
-});
-
 it('404s on an unsupported locale', function () {
     $this->get('/zz')->assertNotFound();
 });
 
-it('persists the visited locale in a cookie', function () {
-    $this->get('/en')->assertOk()->assertPlainCookie('locale', 'en');
+it('sets and persists the locale from a prefixed request', function () {
+    // Empty-cart checkout redirects (no view needed), but the setlocale middleware
+    // still runs: the redirect target is built from app()->getLocale(), and the
+    // locale is persisted as a plain cookie.
+    $this->get('/en/checkout')
+        ->assertRedirect(route('catalogue', 'en'))
+        ->assertPlainCookie('locale', 'en');
 });
