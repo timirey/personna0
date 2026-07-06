@@ -4,6 +4,7 @@ defineProps({
     size: { type: String, default: null },
     qty: { type: Number, default: 1 },
     amount: { type: String, default: '' },
+    onSale: { type: Boolean, default: false },
 });
 </script>
 
@@ -13,6 +14,7 @@ defineProps({
             <span v-if="qty > 1" class="summary__qty">{{ qty }} ×</span>
             <span>{{ name }}</span>
             <span v-if="size" class="size-badge">{{ size }}</span>
+            <span v-if="onSale" class="size-badge size-badge--sale">%</span>
         </span>
         <span class="summary__amount">{{ amount }}</span>
     </div>

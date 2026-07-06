@@ -22,6 +22,7 @@ return [
         'category' => 'Category',
         'description' => 'Description',
         'price' => 'Price',
+        'sale_price' => 'Sale price',
         'stock' => 'Stock',
         'sizes' => 'Sizes',
         'gallery' => 'Photos',
@@ -57,6 +58,7 @@ return [
         'meta_title' => 'SEO title (per language).',
         'meta_description' => 'SEO description (per language).',
         'currency' => 'Currency code, e.g. MDL, EUR, USD.',
+        'sale_price' => 'Discounted price. Leave empty for no discount.',
         'hero_image' => 'Shown beside the slogan on the homepage. Leave blank to hide it.',
     ],
 ];

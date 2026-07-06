@@ -99,7 +99,7 @@ class Cart
             }
 
             $qty = (int) $line['qty'];
-            $unit = (float) $product->price;
+            $unit = $product->effectivePrice();
 
             return [
                 'lineKey' => $lineKey,
@@ -107,6 +107,7 @@ class Cart
                 'size' => $line['size'] ?? null,
                 'qty' => $qty,
                 'unit_price' => $unit,
+                'original_unit_price' => $product->isOnSale() ? (float) $product->price : null,
                 'line_total' => round($unit * $qty, 2),
             ];
         })->filter()->values();

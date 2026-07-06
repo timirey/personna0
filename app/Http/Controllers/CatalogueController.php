@@ -107,7 +107,7 @@ class CatalogueController extends Controller
                 'brand' => ['@type' => 'Brand', 'name' => 'Personna'],
                 'offers' => [
                     '@type' => 'Offer',
-                    'price' => number_format((float) $product->price, 2, '.', ''),
+                    'price' => number_format($product->effectivePrice(), 2, '.', ''),
                     'priceCurrency' => \App\Support\Money::currency(),
                     'availability' => $product->isSoldOut()
                         ? 'https://schema.org/OutOfStock'

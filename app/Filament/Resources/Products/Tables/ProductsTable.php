@@ -37,6 +37,11 @@ class ProductsTable
                     ->formatStateUsing(fn ($state) => Money::format($state))
                     ->sortable(),
 
+                TextColumn::make('sale_price')
+                    ->label(__('admin.fields.sale_price'))
+                    ->placeholder('—')
+                    ->formatStateUsing(fn ($state) => $state ? Money::format($state) : null),
+
                 TextColumn::make('stock')
                     ->label(__('admin.fields.stock'))
                     ->placeholder('∞')

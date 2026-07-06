@@ -88,6 +88,7 @@ class CheckoutController extends Controller
                     'size' => $row['size'],
                     'qty' => $row['qty'],
                     'unit_price' => $row['unit_price'],
+                    'original_unit_price' => $row['original_unit_price'] ?? null,
                     'line_total' => $row['line_total'],
                 ]);
 

@@ -24,7 +24,7 @@ const catalogueUrl = computed(() => usePage().props.urls.catalogue);
 
             <div class="success-items">
                 <OrderLine v-for="(item, i) in order.items" :key="i"
-                           :name="item.name" :size="item.size" :qty="item.qty" :amount="item.lineFormatted" />
+                           :name="item.name" :size="item.size" :qty="item.qty" :amount="item.lineFormatted" :on-sale="item.onSale" />
                 <div class="summary__row summary__row--total">
                     <span>{{ $t('cart.subtotal') }}</span>
                     <strong>{{ order.totalFormatted }}</strong>

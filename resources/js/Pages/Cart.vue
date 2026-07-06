@@ -42,7 +42,10 @@ function removeLine(lineKey) {
                     <div class="cart-row__info">
                         <Link :href="row.url" class="cart-row__name">{{ row.name }}</Link>
                         <span v-if="row.size" class="cart-row__meta">{{ $t('cart.size') }}: {{ row.size }}</span>
-                        <span class="cart-row__meta">{{ row.unitFormatted }}</span>
+                        <span class="cart-row__meta">
+                            <span :class="{ 'price--sale': row.onSale }">{{ row.unitFormatted }}</span>
+                            <span v-if="row.onSale" class="price--old">{{ row.originalUnitFormatted }}</span>
+                        </span>
                     </div>
                     <div class="cart-row__qty">
                         <input type="number" :value="row.qty" min="0" max="99"

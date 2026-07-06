@@ -53,6 +53,14 @@ class ProductForm
                     ->minValue(0)
                     ->prefix(Money::currency()),
 
+                TextInput::make('sale_price')
+                    ->label(__('admin.fields.sale_price'))
+                    ->numeric()
+                    ->minValue(0)
+                    ->lt('price')
+                    ->prefix(Money::currency())
+                    ->helperText(__('admin.help.sale_price')),
+
                 TextInput::make('stock')
                     ->label(__('admin.fields.stock'))
                     ->numeric()

@@ -57,7 +57,7 @@ function submit() {
             <aside class="checkout__summary">
                 <h2 class="eyebrow">{{ $t('checkout.summary') }}</h2>
                 <OrderLine v-for="row in rows" :key="row.lineKey"
-                           :name="row.name" :size="row.size" :qty="row.qty" :amount="row.lineFormatted" />
+                           :name="row.name" :size="row.size" :qty="row.qty" :amount="row.lineFormatted" :on-sale="row.onSale" />
                 <div class="summary__row summary__row--total">
                     <span>{{ $t('cart.subtotal') }}</span>
                     <strong>{{ totalFormatted }}</strong>

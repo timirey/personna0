@@ -234,7 +234,10 @@ var _sfc_main$11 = {
 					}, _parent));
 					if (row.size) _push(`<span class="cart-row__meta">${ssrInterpolate(_ctx.$t("cart.size"))}: ${ssrInterpolate(row.size)}</span>`);
 					else _push(`<!---->`);
-					_push(`<span class="cart-row__meta">${ssrInterpolate(row.unitFormatted)}</span></div><div class="cart-row__qty"><input type="number"${ssrRenderAttr("value", row.qty)} min="0" max="99"${ssrRenderAttr("aria-label", _ctx.$t("product.quantity"))}></div><span class="cart-row__total">${ssrInterpolate(row.lineFormatted)}</span><button class="cart-row__remove" type="button"${ssrRenderAttr("aria-label", _ctx.$t("cart.remove"))}>×</button></div>`);
+					_push(`<span class="cart-row__meta"><span class="${ssrRenderClass({ "price--sale": row.onSale })}">${ssrInterpolate(row.unitFormatted)}</span>`);
+					if (row.onSale) _push(`<span class="price--old">${ssrInterpolate(row.originalUnitFormatted)}</span>`);
+					else _push(`<!---->`);
+					_push(`</span></div><div class="cart-row__qty"><input type="number"${ssrRenderAttr("value", row.qty)} min="0" max="99"${ssrRenderAttr("aria-label", _ctx.$t("product.quantity"))}></div><span class="cart-row__total">${ssrInterpolate(row.lineFormatted)}</span><button class="cart-row__remove" type="button"${ssrRenderAttr("aria-label", _ctx.$t("cart.remove"))}>×</button></div>`);
 				});
 				_push(`<!--]--></div><aside class="cart__summary"><div class="summary__row summary__row--total"><span>${ssrInterpolate(_ctx.$t("cart.subtotal"))}</span><strong>${ssrInterpolate(__props.totalFormatted)}</strong></div>`);
 				_push(ssrRenderComponent(unref(Link), {
@@ -291,8 +294,12 @@ var _sfc_main$10 = {
 						if (__props.product.image) _push(`<img class="product-img"${ssrRenderAttr("src", __props.product.image.card)}${ssrRenderAttr("srcset", `${__props.product.image.thumb} 400w, ${__props.product.image.card} 800w, ${__props.product.image.full} 1600w`)} sizes="(max-width: 760px) 50vw, 360px" width="800" height="1000"${ssrRenderAttr("alt", __props.product.name)} loading="lazy" decoding="async"${_scopeId}>`);
 						else _push(`<div class="product-img product-img--ph"${_scopeId}><span${_scopeId}>Personna</span></div>`);
 						if (__props.product.soldOut) _push(`<span class="card__badge"${_scopeId}>${ssrInterpolate(_ctx.$t("product.sold_out"))}</span>`);
+						else if (__props.product.onSale) _push(`<span class="card__badge card__badge--sale"${_scopeId}>−${ssrInterpolate(__props.product.discountPercent)}%</span>`);
 						else _push(`<!---->`);
-						_push(`</div><div class="card__body"${_scopeId}><h3 class="card__title"${_scopeId}>${ssrInterpolate(__props.product.name)}</h3><p class="card__price"${_scopeId}>${ssrInterpolate(__props.product.priceFormatted)}</p></div>`);
+						_push(`</div><div class="card__body"${_scopeId}><h3 class="card__title"${_scopeId}>${ssrInterpolate(__props.product.name)}</h3><p class="card__price"${_scopeId}><span class="${ssrRenderClass({ "price--sale": __props.product.onSale })}"${_scopeId}>${ssrInterpolate(__props.product.priceFormatted)}</span>`);
+						if (__props.product.onSale) _push(`<span class="price--old"${_scopeId}>${ssrInterpolate(__props.product.originalPriceFormatted)}</span>`);
+						else _push(`<!---->`);
+						_push(`</p></div>`);
 					} else return [createVNode("div", { class: "card__media" }, [__props.product.image ? (openBlock(), createBlock("img", {
 						key: 0,
 						class: "product-img",
@@ -314,7 +321,13 @@ var _sfc_main$10 = {
 					}, [createVNode("span", null, "Personna")])), __props.product.soldOut ? (openBlock(), createBlock("span", {
 						key: 2,
 						class: "card__badge"
-					}, toDisplayString(_ctx.$t("product.sold_out")), 1)) : createCommentVNode("", true)]), createVNode("div", { class: "card__body" }, [createVNode("h3", { class: "card__title" }, toDisplayString(__props.product.name), 1), createVNode("p", { class: "card__price" }, toDisplayString(__props.product.priceFormatted), 1)])];
+					}, toDisplayString(_ctx.$t("product.sold_out")), 1)) : __props.product.onSale ? (openBlock(), createBlock("span", {
+						key: 3,
+						class: "card__badge card__badge--sale"
+					}, "−" + toDisplayString(__props.product.discountPercent) + "%", 1)) : createCommentVNode("", true)]), createVNode("div", { class: "card__body" }, [createVNode("h3", { class: "card__title" }, toDisplayString(__props.product.name), 1), createVNode("p", { class: "card__price" }, [createVNode("span", { class: { "price--sale": __props.product.onSale } }, toDisplayString(__props.product.priceFormatted), 3), __props.product.onSale ? (openBlock(), createBlock("span", {
+						key: 0,
+						class: "price--old"
+					}, toDisplayString(__props.product.originalPriceFormatted), 1)) : createCommentVNode("", true)])])];
 				}),
 				_: 1
 			}, _parent));
@@ -481,6 +494,10 @@ var _sfc_main$8 = {
 		amount: {
 			type: String,
 			default: ""
+		},
+		onSale: {
+			type: Boolean,
+			default: false
 		}
 	},
 	setup(__props) {
@@ -490,6 +507,8 @@ var _sfc_main$8 = {
 			else _push(`<!---->`);
 			_push(`<span>${ssrInterpolate(__props.name)}</span>`);
 			if (__props.size) _push(`<span class="size-badge">${ssrInterpolate(__props.size)}</span>`);
+			else _push(`<!---->`);
+			if (__props.onSale) _push(`<span class="size-badge size-badge--sale">%</span>`);
 			else _push(`<!---->`);
 			_push(`</span><span class="summary__amount">${ssrInterpolate(__props.amount)}</span></div>`);
 		};
@@ -565,7 +584,8 @@ var _sfc_main$7 = {
 					name: row.name,
 					size: row.size,
 					qty: row.qty,
-					amount: row.lineFormatted
+					amount: row.lineFormatted,
+					"on-sale": row.onSale
 				}, null, _parent));
 			});
 			_push(`<!--]--><div class="summary__row summary__row--total"><span>${ssrInterpolate(_ctx.$t("cart.subtotal"))}</span><strong>${ssrInterpolate(__props.totalFormatted)}</strong></div></aside></div></div><!--]-->`);
@@ -745,7 +765,12 @@ var _sfc_main$4 = {
 				images: __props.product.gallery,
 				alt: __props.product.name
 			}, null, _parent));
-			_push(`<div class="product__info"><h1 class="product__title">${ssrInterpolate(__props.product.name)}</h1><p class="product__price">${ssrInterpolate(__props.product.priceFormatted)}</p>`);
+			_push(`<div class="product__info"><h1 class="product__title">${ssrInterpolate(__props.product.name)}</h1><p class="product__price"><span class="${ssrRenderClass({ "price--sale": __props.product.onSale })}">${ssrInterpolate(__props.product.priceFormatted)}</span>`);
+			if (__props.product.onSale) _push(`<span class="price--old">${ssrInterpolate(__props.product.originalPriceFormatted)}</span>`);
+			else _push(`<!---->`);
+			if (__props.product.onSale) _push(`<span class="sale-tag">−${ssrInterpolate(__props.product.discountPercent)}%</span>`);
+			else _push(`<!---->`);
+			_push(`</p>`);
 			if (__props.product.description) _push(`<div class="product__desc" style="${ssrRenderStyle({ "white-space": "pre-line" })}">${ssrInterpolate(__props.product.description)}</div>`);
 			else _push(`<!---->`);
 			if (__props.product.soldOut) _push(`<p class="soldout">${ssrInterpolate(_ctx.$t("product.sold_out"))}</p>`);
@@ -804,7 +829,8 @@ var _sfc_main$3 = {
 					name: item.name,
 					size: item.size,
 					qty: item.qty,
-					amount: item.lineFormatted
+					amount: item.lineFormatted,
+					"on-sale": item.onSale
 				}, null, _parent));
 			});
 			_push(`<!--]--><div class="summary__row summary__row--total"><span>${ssrInterpolate(_ctx.$t("cart.subtotal"))}</span><strong>${ssrInterpolate(__props.order.totalFormatted)}</strong></div></div>`);

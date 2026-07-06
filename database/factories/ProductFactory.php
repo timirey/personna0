@@ -62,4 +62,9 @@ class ProductFactory extends Factory
     {
         return $this->state(fn () => ['sizes' => []]);
     }
+
+    public function onSale(float $price, float $salePrice): static
+    {
+        return $this->state(fn () => ['price' => $price, 'sale_price' => $salePrice]);
+    }
 }

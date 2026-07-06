@@ -24,10 +24,14 @@ defineProps({
                 />
                 <div v-else class="product-img product-img--ph"><span>Personna</span></div>
                 <span v-if="product.soldOut" class="card__badge">{{ $t('product.sold_out') }}</span>
+                <span v-else-if="product.onSale" class="card__badge card__badge--sale">−{{ product.discountPercent }}%</span>
             </div>
             <div class="card__body">
                 <h3 class="card__title">{{ product.name }}</h3>
-                <p class="card__price">{{ product.priceFormatted }}</p>
+                <p class="card__price">
+                    <span :class="{ 'price--sale': product.onSale }">{{ product.priceFormatted }}</span>
+                    <span v-if="product.onSale" class="price--old">{{ product.originalPriceFormatted }}</span>
+                </p>
             </div>
         </Link>
     </article>

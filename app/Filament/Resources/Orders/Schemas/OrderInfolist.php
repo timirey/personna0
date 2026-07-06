@@ -32,9 +32,19 @@ class OrderInfolist
                         TextEntry::make('product_name')->label(__('admin.fields.product')),
                         TextEntry::make('size')->label(__('admin.fields.sizes'))->placeholder('—'),
                         TextEntry::make('qty')->label(__('admin.fields.qty')),
+                        TextEntry::make('unit_price')
+                            ->label(__('admin.fields.unit_price'))
+                            ->formatStateUsing(function ($state, $record) {
+                                $price = Money::format($state);
+                                if ($record->original_unit_price) {
+                                    return Money::format($record->original_unit_price).' → '.$price;
+                                }
+
+                                return $price;
+                            }),
                         TextEntry::make('line_total')->label(__('admin.fields.line_total'))->formatStateUsing(fn ($state) => Money::format($state)),
                     ])
-                    ->columns(4)
+                    ->columns(5)
                     ->columnSpanFull(),
             ]);
     }

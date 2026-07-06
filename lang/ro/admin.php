@@ -22,6 +22,7 @@ return [
         'category' => 'Categorie',
         'description' => 'Descriere',
         'price' => 'Preț',
+        'sale_price' => 'Preț redus',
         'stock' => 'Stoc',
         'sizes' => 'Mărimi',
         'gallery' => 'Fotografii',
@@ -57,6 +58,7 @@ return [
         'meta_title' => 'Titlu SEO (pentru fiecare limbă).',
         'meta_description' => 'Descriere SEO (pentru fiecare limbă).',
         'currency' => 'Cod valutar, ex. MDL, EUR, USD.',
+        'sale_price' => 'Preț redus. Gol — fără reducere.',
         'hero_image' => 'Afișată lângă slogan pe prima pagină. Gol — ascunsă.',
     ],
 ];

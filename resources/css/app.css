@@ -17,6 +17,7 @@
     --line: rgba(28, 27, 23, 0.14);
     --accent: #1c1b17;
     --ok: #4a7c59;
+    --sale: #9b2c2c;
 
     --serif: 'Tinos', 'Times New Roman', Times, serif;
     --sans: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -387,6 +388,39 @@ main {
     color: var(--muted);
     font-size: var(--step--1);
     margin-top: 0.15rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+}
+
+/* ---- Discounts (shared) ---- */
+.card__badge--sale {
+    background: var(--sale);
+    color: #fff;
+}
+.price--sale {
+    color: var(--sale);
+    font-weight: 600;
+}
+.price--old {
+    text-decoration: line-through;
+    color: var(--muted);
+    opacity: 0.8;
+}
+.sale-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: var(--sale);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.size-badge--sale {
+    border-color: var(--sale);
+    color: var(--sale);
 }
 
 /* ---- Pager ---- */
@@ -508,6 +542,10 @@ main {
     font-size: var(--step-1);
     margin-top: 0.4rem;
     color: var(--ink-2);
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    flex-wrap: wrap;
 }
 .product__desc {
     margin-top: 1.2rem;

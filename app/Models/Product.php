@@ -22,12 +22,13 @@ class Product extends Model implements HasMedia
 
     protected $fillable = [
         'category_id', 'name', 'description', 'meta_title', 'meta_description',
-        'slug', 'price', 'stock', 'sizes', 'is_active',
+        'slug', 'price', 'sale_price', 'stock', 'sizes', 'is_active',
     ];
 
     protected $casts = [
         'sizes' => 'array',
         'price' => 'decimal:2',
+        'sale_price' => 'decimal:2',
         'stock' => 'integer',
         'is_active' => 'boolean',
     ];
@@ -51,6 +52,28 @@ class Product extends Model implements HasMedia
     public function isSoldOut(): bool
     {
         return ! is_null($this->stock) && $this->stock <= 0;
+    }
+
+    /** A discount is active when sale_price is set and below the base price. */
+    public function isOnSale(): bool
+    {
+        return ! is_null($this->sale_price) && (float) $this->sale_price < (float) $this->price;
+    }
+
+    /** The price the customer actually pays (sale price when on sale). */
+    public function effectivePrice(): float
+    {
+        return $this->isOnSale() ? (float) $this->sale_price : (float) $this->price;
+    }
+
+    /** Whole-percent discount, e.g. 25 for -25%. */
+    public function discountPercent(): ?int
+    {
+        if (! $this->isOnSale() || (float) $this->price <= 0) {
+            return null;
+        }
+
+        return (int) round((1 - ((float) $this->sale_price / (float) $this->price)) * 100);
     }
 
     public function registerMediaCollections(): void

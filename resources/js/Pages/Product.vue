@@ -60,7 +60,11 @@ function submit() {
 
             <div class="product__info">
                 <h1 class="product__title">{{ product.name }}</h1>
-                <p class="product__price">{{ product.priceFormatted }}</p>
+                <p class="product__price">
+                    <span :class="{ 'price--sale': product.onSale }">{{ product.priceFormatted }}</span>
+                    <span v-if="product.onSale" class="price--old">{{ product.originalPriceFormatted }}</span>
+                    <span v-if="product.onSale" class="sale-tag">−{{ product.discountPercent }}%</span>
+                </p>
 
                 <div v-if="product.description" class="product__desc" style="white-space: pre-line">{{ product.description }}</div>
 
