@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import SeoHead from '../components/SeoHead.vue';
+import OrderLine from '../components/OrderLine.vue';
 
 defineProps({
     order: { type: Object, required: true },
@@ -22,10 +23,8 @@ const catalogueUrl = computed(() => usePage().props.urls.catalogue);
             <p class="muted">{{ $t('success.contact_soon') }}</p>
 
             <div class="success-items">
-                <div v-for="(item, i) in order.items" :key="i" class="summary__line">
-                    <span>{{ item.name }}<template v-if="item.size"> · {{ item.size }}</template> × {{ item.qty }}</span>
-                    <span>{{ item.lineFormatted }}</span>
-                </div>
+                <OrderLine v-for="(item, i) in order.items" :key="i"
+                           :name="item.name" :size="item.size" :qty="item.qty" :amount="item.lineFormatted" />
                 <div class="summary__row summary__row--total">
                     <span>{{ $t('cart.subtotal') }}</span>
                     <strong>{{ order.totalFormatted }}</strong>

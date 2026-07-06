@@ -9,6 +9,7 @@
   "resources/js/components/Gallery.vue": [],
   "resources/js/components/JsonLd.vue": [],
   "resources/js/components/LanguageSwitcher.vue": [],
+  "resources/js/components/OrderLine.vue": [],
   "resources/js/components/ProductCard.vue": [],
   "resources/js/components/SeoHead.vue": [],
   "resources/js/components/Toasts.vue": [],

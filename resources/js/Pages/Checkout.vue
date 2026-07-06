@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import SeoHead from '../components/SeoHead.vue';
+import OrderLine from '../components/OrderLine.vue';
 
 defineProps({
     rows: { type: Array, default: () => [] },
@@ -55,10 +56,8 @@ function submit() {
 
             <aside class="checkout__summary">
                 <h2 class="eyebrow">{{ $t('checkout.summary') }}</h2>
-                <div v-for="row in rows" :key="row.lineKey" class="summary__line">
-                    <span>{{ row.name }}<template v-if="row.size"> · {{ row.size }}</template> × {{ row.qty }}</span>
-                    <span>{{ row.lineFormatted }}</span>
-                </div>
+                <OrderLine v-for="row in rows" :key="row.lineKey"
+                           :name="row.name" :size="row.size" :qty="row.qty" :amount="row.lineFormatted" />
                 <div class="summary__row summary__row--total">
                     <span>{{ $t('cart.subtotal') }}</span>
                     <strong>{{ totalFormatted }}</strong>

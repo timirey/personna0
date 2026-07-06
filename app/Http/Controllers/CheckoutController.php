@@ -121,7 +121,7 @@ class CheckoutController extends Controller
     protected function makeReference(): string
     {
         do {
-            $reference = 'PN-'.now()->format('ymd').'-'.Str::upper(Str::random(4));
+            $reference = 'PN-'.Str::upper(Str::random(5));
         } while (Order::where('reference', $reference)->exists());
 
         return $reference;

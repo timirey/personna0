@@ -16,7 +16,7 @@ var __exportAll = (all, no_symbols) => {
 };
 //#endregion
 //#region resources/js/components/SeoHead.vue
-var _sfc_main$11 = {
+var _sfc_main$12 = {
 	__name: "SeoHead",
 	__ssrInlineRender: true,
 	props: {
@@ -143,16 +143,16 @@ var _sfc_main$11 = {
 		};
 	}
 };
-var _sfc_setup$11 = _sfc_main$11.setup;
-_sfc_main$11.setup = (props, ctx) => {
+var _sfc_setup$12 = _sfc_main$12.setup;
+_sfc_main$12.setup = (props, ctx) => {
 	const ssrContext = useSSRContext();
 	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/SeoHead.vue");
-	return _sfc_setup$11 ? _sfc_setup$11(props, ctx) : void 0;
+	return _sfc_setup$12 ? _sfc_setup$12(props, ctx) : void 0;
 };
 //#endregion
 //#region resources/js/Pages/Cart.vue
-var Cart_exports = /* @__PURE__ */ __exportAll({ default: () => _sfc_main$10 });
-var _sfc_main$10 = {
+var Cart_exports = /* @__PURE__ */ __exportAll({ default: () => _sfc_main$11 });
+var _sfc_main$11 = {
 	__name: "Cart",
 	__ssrInlineRender: true,
 	props: {
@@ -177,7 +177,7 @@ var _sfc_main$10 = {
 		const urls = computed(() => usePage().props.urls);
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<!--[-->`);
-			_push(ssrRenderComponent(_sfc_main$11, {
+			_push(ssrRenderComponent(_sfc_main$12, {
 				title: __props.title,
 				noindex: ""
 			}, null, _parent));
@@ -263,15 +263,15 @@ var _sfc_main$10 = {
 		};
 	}
 };
-var _sfc_setup$10 = _sfc_main$10.setup;
-_sfc_main$10.setup = (props, ctx) => {
+var _sfc_setup$11 = _sfc_main$11.setup;
+_sfc_main$11.setup = (props, ctx) => {
 	const ssrContext = useSSRContext();
 	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Cart.vue");
-	return _sfc_setup$10 ? _sfc_setup$10(props, ctx) : void 0;
+	return _sfc_setup$11 ? _sfc_setup$11(props, ctx) : void 0;
 };
 //#endregion
 //#region resources/js/components/ProductCard.vue
-var _sfc_main$9 = {
+var _sfc_main$10 = {
 	__name: "ProductCard",
 	__ssrInlineRender: true,
 	props: { product: {
@@ -322,16 +322,16 @@ var _sfc_main$9 = {
 		};
 	}
 };
-var _sfc_setup$9 = _sfc_main$9.setup;
-_sfc_main$9.setup = (props, ctx) => {
+var _sfc_setup$10 = _sfc_main$10.setup;
+_sfc_main$10.setup = (props, ctx) => {
 	const ssrContext = useSSRContext();
 	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/ProductCard.vue");
-	return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
+	return _sfc_setup$10 ? _sfc_setup$10(props, ctx) : void 0;
 };
 //#endregion
 //#region resources/js/Pages/Catalogue.vue
-var Catalogue_exports = /* @__PURE__ */ __exportAll({ default: () => _sfc_main$8 });
-var _sfc_main$8 = {
+var Catalogue_exports = /* @__PURE__ */ __exportAll({ default: () => _sfc_main$9 });
+var _sfc_main$9 = {
 	__name: "Catalogue",
 	__ssrInlineRender: true,
 	props: {
@@ -365,7 +365,7 @@ var _sfc_main$8 = {
 		const categoryHref = (slug) => slug ? `${catalogueUrl.value}?category=${slug}` : catalogueUrl.value;
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<!--[-->`);
-			_push(ssrRenderComponent(_sfc_main$11, {
+			_push(ssrRenderComponent(_sfc_main$12, {
 				title: __props.title,
 				description: __props.description
 			}, null, _parent));
@@ -409,7 +409,7 @@ var _sfc_main$8 = {
 			else {
 				_push(`<!--[--><div class="grid"><!--[-->`);
 				ssrRenderList(__props.products.data, (product) => {
-					_push(ssrRenderComponent(_sfc_main$9, {
+					_push(ssrRenderComponent(_sfc_main$10, {
 						key: product.id,
 						product
 					}, null, _parent));
@@ -454,10 +454,51 @@ var _sfc_main$8 = {
 		};
 	}
 };
+var _sfc_setup$9 = _sfc_main$9.setup;
+_sfc_main$9.setup = (props, ctx) => {
+	const ssrContext = useSSRContext();
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Catalogue.vue");
+	return _sfc_setup$9 ? _sfc_setup$9(props, ctx) : void 0;
+};
+//#endregion
+//#region resources/js/components/OrderLine.vue
+var _sfc_main$8 = {
+	__name: "OrderLine",
+	__ssrInlineRender: true,
+	props: {
+		name: {
+			type: String,
+			required: true
+		},
+		size: {
+			type: String,
+			default: null
+		},
+		qty: {
+			type: Number,
+			default: 1
+		},
+		amount: {
+			type: String,
+			default: ""
+		}
+	},
+	setup(__props) {
+		return (_ctx, _push, _parent, _attrs) => {
+			_push(`<div${ssrRenderAttrs(mergeProps({ class: "summary__line" }, _attrs))}><span class="summary__item">`);
+			if (__props.qty > 1) _push(`<span class="summary__qty">${ssrInterpolate(__props.qty)} ×</span>`);
+			else _push(`<!---->`);
+			_push(`<span>${ssrInterpolate(__props.name)}</span>`);
+			if (__props.size) _push(`<span class="size-badge">${ssrInterpolate(__props.size)}</span>`);
+			else _push(`<!---->`);
+			_push(`</span><span class="summary__amount">${ssrInterpolate(__props.amount)}</span></div>`);
+		};
+	}
+};
 var _sfc_setup$8 = _sfc_main$8.setup;
 _sfc_main$8.setup = (props, ctx) => {
 	const ssrContext = useSSRContext();
-	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Catalogue.vue");
+	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/OrderLine.vue");
 	return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
 };
 //#endregion
@@ -493,7 +534,7 @@ var _sfc_main$7 = {
 		});
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<!--[-->`);
-			_push(ssrRenderComponent(_sfc_main$11, {
+			_push(ssrRenderComponent(_sfc_main$12, {
 				title: __props.title,
 				noindex: ""
 			}, null, _parent));
@@ -519,10 +560,13 @@ var _sfc_main$7 = {
 			}, _parent));
 			_push(`</form><aside class="checkout__summary"><h2 class="eyebrow">${ssrInterpolate(_ctx.$t("checkout.summary"))}</h2><!--[-->`);
 			ssrRenderList(__props.rows, (row) => {
-				_push(`<div class="summary__line"><span>${ssrInterpolate(row.name)}`);
-				if (row.size) _push(`<!--[--> · ${ssrInterpolate(row.size)}<!--]-->`);
-				else _push(`<!---->`);
-				_push(` × ${ssrInterpolate(row.qty)}</span><span>${ssrInterpolate(row.lineFormatted)}</span></div>`);
+				_push(ssrRenderComponent(_sfc_main$8, {
+					key: row.lineKey,
+					name: row.name,
+					size: row.size,
+					qty: row.qty,
+					amount: row.lineFormatted
+				}, null, _parent));
 			});
 			_push(`<!--]--><div class="summary__row summary__row--total"><span>${ssrInterpolate(_ctx.$t("cart.subtotal"))}</span><strong>${ssrInterpolate(__props.totalFormatted)}</strong></div></aside></div></div><!--]-->`);
 		};
@@ -682,7 +726,7 @@ var _sfc_main$4 = {
 		});
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<!--[-->`);
-			_push(ssrRenderComponent(_sfc_main$11, {
+			_push(ssrRenderComponent(_sfc_main$12, {
 				title: __props.title,
 				description: __props.description,
 				"og-image": __props.ogImage
@@ -749,16 +793,19 @@ var _sfc_main$3 = {
 		const catalogueUrl = computed(() => usePage().props.urls.catalogue);
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<!--[-->`);
-			_push(ssrRenderComponent(_sfc_main$11, {
+			_push(ssrRenderComponent(_sfc_main$12, {
 				title: __props.title,
 				noindex: ""
 			}, null, _parent));
 			_push(`<div class="wrap page success-page"><div class="success-card"><h1 class="page__title">${ssrInterpolate(_ctx.$t("success.title"))}</h1><p>${ssrInterpolate(_ctx.$t("success.thanks"))}</p><p class="success-ref">${ssrInterpolate(_ctx.$t("success.reference"))}: <strong>${ssrInterpolate(__props.order.reference)}</strong></p><p class="muted">${ssrInterpolate(_ctx.$t("success.contact_soon"))}</p><div class="success-items"><!--[-->`);
 			ssrRenderList(__props.order.items, (item, i) => {
-				_push(`<div class="summary__line"><span>${ssrInterpolate(item.name)}`);
-				if (item.size) _push(`<!--[--> · ${ssrInterpolate(item.size)}<!--]-->`);
-				else _push(`<!---->`);
-				_push(` × ${ssrInterpolate(item.qty)}</span><span>${ssrInterpolate(item.lineFormatted)}</span></div>`);
+				_push(ssrRenderComponent(_sfc_main$8, {
+					key: i,
+					name: item.name,
+					size: item.size,
+					qty: item.qty,
+					amount: item.lineFormatted
+				}, null, _parent));
 			});
 			_push(`<!--]--><div class="summary__row summary__row--total"><span>${ssrInterpolate(_ctx.$t("cart.subtotal"))}</span><strong>${ssrInterpolate(__props.order.totalFormatted)}</strong></div></div>`);
 			_push(ssrRenderComponent(unref(Link), {
