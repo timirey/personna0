@@ -12,6 +12,10 @@ Make the Blade storefront feel reactive/smooth without a JS-framework rewrite, w
 4. **Mobile-first product gallery** — images are a **swipeable slider** on phones (the primary device), with dot indicators; thumbnails on larger screens.
 5. Keep server-rendered SEO (canonical, hreflang, JSON-LD), multilingual URLs, and low JS weight.
 
+## Brand naming (fold-in)
+
+The visible brand is **"Personna"** (as printed on the garments); **personna0.com** is only the domain. Rename all user-facing "Personna0" → "Personna": storefront header/footer wordmark, `<title>` suffix, `og:site_name`, Organization JSON-LD `name`, image placeholder text, and the Filament admin `brandName`. Leave `APP_URL`/domain, sitemap, and canonical URLs unchanged (they use the domain).
+
 ## Approach (decided during brainstorming)
 
 **Hotwire Turbo (Drive, global) + Alpine.js**, on top of the existing Blade views. Chosen over (a) full Inertia + Vue 3 + SSR — rejected: much larger JS bundle, a persistent Node SSR process to run, and re-implementing the SEO head in Vue; and (b) Turbo Frames-only — rejected: user wants all navigation (incl. language) reactive, not just the category filter.
