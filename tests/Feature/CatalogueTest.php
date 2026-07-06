@@ -13,6 +13,13 @@ it('lists only active products on the catalogue', function () {
         ->assertDontSee('SentinelHidden');
 });
 
+it('wraps the catalogue grid in a turbo-frame for in-place filtering', function () {
+    $this->get('/en')
+        ->assertOk()
+        ->assertSee('turbo-frame id="catalogue-grid"', false)
+        ->assertSee('data-turbo-action="advance"', false);
+});
+
 it('filters products by category', function () {
     $category = Category::factory()->create(['slug' => 'tees']);
     Product::factory()->for($category)->create(['name' => ['en' => 'SentinelInCat']]);
