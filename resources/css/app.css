@@ -16,6 +16,7 @@
     --muted: #8c887c;
     --line: rgba(28, 27, 23, 0.14);
     --accent: #1c1b17;
+    --ok: #4a7c59;
 
     --serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
     --sans: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -419,15 +420,50 @@ main {
     display: grid;
     gap: clamp(1.2rem, 4vw, 3rem);
 }
-.product__main {
+/* Gallery slider: CSS scroll-snap → native touch swipe on mobile */
+.gallery__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border-radius: var(--radius);
+    background: var(--paper-2);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+.gallery__track::-webkit-scrollbar {
+    display: none;
+}
+.gallery__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+}
+.gallery__slide img {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    border-radius: var(--radius);
-    background: var(--paper-2);
+    display: block;
+}
+.gallery__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+}
+.gallery__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--line);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.gallery__dot.is-active {
+    background: var(--ink);
 }
 .product__thumbs {
-    display: flex;
+    display: none; /* mobile uses swipe + dots */
     gap: 0.6rem;
     margin-top: 0.6rem;
     flex-wrap: wrap;
@@ -438,11 +474,16 @@ main {
     object-fit: cover;
     border-radius: 6px;
     cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    opacity: 0.6;
+    outline: 1px solid transparent;
+    transition: opacity 0.2s, outline-color 0.2s;
 }
-.product__thumb:hover {
+.product__thumb:hover,
+.product__thumb.is-active {
     opacity: 1;
+}
+.product__thumb.is-active {
+    outline-color: var(--ink);
 }
 .product__title {
     font-size: var(--step-2);
@@ -776,6 +817,84 @@ main {
     .product__info {
         position: sticky;
         top: 6rem;
+    }
+    /* Desktop: thumbnail strip instead of swipe dots */
+    .product__thumbs {
+        display: flex;
+    }
+    .gallery__dots {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Reactivity layer — Turbo progress bar, add-to-cart success, toasts
+   ========================================================================== */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Turbo page-load progress bar — brand ink, not the default blue */
+.turbo-progress-bar {
+    height: 3px;
+    background-color: var(--ink);
+}
+
+/* Turbo Frame busy state (category switching) */
+turbo-frame[busy] {
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+}
+
+/* Add-to-cart success: green, same box as idle (no layout shift) */
+.btn {
+    min-height: 3rem;
+}
+.btn.is-added {
+    background: var(--ok);
+    border-color: var(--ok);
+    color: var(--paper);
+    opacity: 1;
+}
+
+/* Toasts */
+.toasts {
+    position: fixed;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: min(92vw, 24rem);
+    pointer-events: none;
+}
+.toast {
+    pointer-events: auto;
+    cursor: pointer;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.8rem 1.1rem;
+    border-radius: var(--radius);
+    font-size: var(--step--1);
+    box-shadow: 0 8px 30px rgba(28, 27, 23, 0.25);
+    animation: toast-in 0.22s ease-out;
+}
+.toast--success {
+    background: var(--ok);
+}
+.toast--error {
+    background: #9b2c2c;
+}
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
