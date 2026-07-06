@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->brandName('Personna0')
+            ->brandName('Personna')
             // Login only — registration, password reset, email verification and
             // profile are intentionally NOT enabled, so those routes don't exist.
             ->login()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\Cart;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -19,11 +20,13 @@ class CartController extends Controller
         ]);
     }
 
-    public function add(Request $request, Cart $cart): RedirectResponse
+    public function add(Request $request, Cart $cart): RedirectResponse|JsonResponse
     {
         // Honeypot: bots fill hidden fields. Silently ignore.
         if (filled($request->input('website'))) {
-            return back();
+            return $request->expectsJson()
+                ? response()->json(['ok' => true, 'count' => $cart->count()])
+                : back();
         }
 
         $data = $request->validate([
@@ -40,6 +43,14 @@ class CartController extends Controller
         }
 
         $cart->add($product->id, $data['size'] ?? null, $data['qty'] ?? 1);
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'ok' => true,
+                'count' => $cart->count(),
+                'message' => __('shop.cart.added'),
+            ]);
+        }
 
         return back()->with('status', __('shop.cart.added'));
     }
