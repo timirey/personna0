@@ -16,8 +16,17 @@ it('sets the html lang attribute to the current locale', function () {
     $this->get('/ru')->assertOk()->assertSee('<html lang="ru">', false);
 });
 
-it('includes Organization JSON-LD site-wide', function () {
-    $this->get('/en')->assertOk()->assertSee('"@type":"Organization"', false);
+it('includes Organization JSON-LD site-wide with the Personna brand', function () {
+    $this->get('/en')->assertOk()
+        ->assertSee('"@type":"Organization"', false)
+        ->assertSee('"name":"Personna"', false);
+});
+
+it('emits csrf-token and app-locale meta for the reactive layer', function () {
+    $this->get('/ru')
+        ->assertOk()
+        ->assertSee('name="csrf-token"', false)
+        ->assertSee('name="app-locale" content="ru"', false);
 });
 
 it('points the product canonical and alternates at the localized urls', function () {
