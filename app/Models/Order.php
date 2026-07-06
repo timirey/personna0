@@ -15,7 +15,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'reference', 'customer_name', 'customer_phone', 'locale', 'total', 'status',
+        'reference', 'customer_name', 'customer_phone', 'locale', 'total', 'status', 'admin_notes',
     ];
 
     protected $casts = [

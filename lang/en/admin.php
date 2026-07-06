@@ -33,6 +33,7 @@ return [
         'phone' => 'Phone',
         'total' => 'Total',
         'status' => 'Status',
+        'notes' => 'Internal notes',
         'date' => 'Date',
         'language' => 'Language',
         'qty' => 'Qty',

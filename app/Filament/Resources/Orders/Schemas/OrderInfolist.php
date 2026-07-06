@@ -21,6 +21,11 @@ class OrderInfolist
                 TextEntry::make('created_at')->label(__('admin.fields.date'))->dateTime('d M Y, H:i'),
                 TextEntry::make('total')->label(__('admin.fields.total'))->formatStateUsing(fn ($state) => Money::format($state)),
 
+                TextEntry::make('admin_notes')
+                    ->label(__('admin.fields.notes'))
+                    ->placeholder('—')
+                    ->columnSpanFull(),
+
                 RepeatableEntry::make('items')
                     ->label(__('admin.order.items'))
                     ->schema([

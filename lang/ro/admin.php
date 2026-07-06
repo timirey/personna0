@@ -33,6 +33,7 @@ return [
         'phone' => 'Telefon',
         'total' => 'Total',
         'status' => 'Status',
+        'notes' => 'Note interne',
         'date' => 'Dată',
         'language' => 'Limbă',
         'qty' => 'Cant.',
