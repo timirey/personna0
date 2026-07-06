@@ -347,6 +347,10 @@ var _sfc_main$8 = {
 			type: String,
 			default: null
 		},
+		heroImage: {
+			type: String,
+			default: null
+		},
 		title: {
 			type: String,
 			default: ""
@@ -365,7 +369,10 @@ var _sfc_main$8 = {
 				title: __props.title,
 				description: __props.description
 			}, null, _parent));
-			_push(`<section class="hero"><div class="wrap"><p class="eyebrow">Personna</p><h1 class="hero__title">${ssrInterpolate(_ctx.$t("tagline"))}</h1></div></section><section class="wrap catalogue">`);
+			_push(`<section class="${ssrRenderClass([{ "hero--split": __props.heroImage }, "hero"])}"><div class="wrap hero__inner"><div class="hero__text"><p class="eyebrow">Personna</p><h1 class="hero__title">${ssrInterpolate(_ctx.$t("tagline"))}</h1></div>`);
+			if (__props.heroImage) _push(`<div class="hero__media"><img${ssrRenderAttr("src", __props.heroImage)} alt="Personna" fetchpriority="high" decoding="async"></div>`);
+			else _push(`<!---->`);
+			_push(`</div></section><section class="wrap catalogue">`);
 			if (__props.categories.length) {
 				_push(`<nav class="filters"${ssrRenderAttr("aria-label", _ctx.$t("catalogue.all"))}>`);
 				_push(ssrRenderComponent(unref(Link), {

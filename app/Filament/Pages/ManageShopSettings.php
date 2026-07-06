@@ -47,6 +47,10 @@ class ManageShopSettings extends SettingsPage
                 TextInput::make('telegram_chat_id')
                     ->label('Telegram chat ID'),
 
+                TextInput::make('hero_image')
+                    ->label('Homepage hero image (URL or /path)')
+                    ->helperText('Shown beside the slogan on the homepage. Leave blank to hide it.'),
+
                 TextInput::make('instagram_url')
                     ->label('Instagram URL')
                     ->url(),

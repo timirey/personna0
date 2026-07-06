@@ -19,6 +19,9 @@ class ShopSettings extends Settings
     public ?string $contact_email;
     public ?string $address;
 
+    /** Homepage hero image (URL or /path). Blank hides the hero image. */
+    public ?string $hero_image;
+
     public static function group(): string
     {
         return 'shop';

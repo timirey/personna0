@@ -8,6 +8,7 @@ const props = defineProps({
     products: { type: Object, required: true },
     categories: { type: Array, default: () => [] },
     activeCategory: { type: String, default: null },
+    heroImage: { type: String, default: null },
     title: { type: String, default: '' },
     description: { type: String, default: '' },
 });
@@ -19,10 +20,15 @@ const categoryHref = (slug) => (slug ? `${catalogueUrl.value}?category=${slug}` 
 <template>
     <SeoHead :title="title" :description="description" />
 
-    <section class="hero">
-        <div class="wrap">
-            <p class="eyebrow">Personna</p>
-            <h1 class="hero__title">{{ $t('tagline') }}</h1>
+    <section class="hero" :class="{ 'hero--split': heroImage }">
+        <div class="wrap hero__inner">
+            <div class="hero__text">
+                <p class="eyebrow">Personna</p>
+                <h1 class="hero__title">{{ $t('tagline') }}</h1>
+            </div>
+            <div v-if="heroImage" class="hero__media">
+                <img :src="heroImage" alt="Personna" fetchpriority="high" decoding="async" />
+            </div>
         </div>
     </section>
 

@@ -37,6 +37,7 @@ class CatalogueController extends Controller
             'products' => $products,
             'categories' => $categories,
             'activeCategory' => $activeCategory,
+            'heroImage' => app(\App\Settings\ShopSettings::class)->hero_image ?: null,
             'title' => __('shop.nav.shop'),
             'description' => __('shop.tagline'),
         ]);
