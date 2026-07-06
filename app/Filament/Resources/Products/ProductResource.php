@@ -24,11 +24,24 @@ class ProductResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingBag;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Shop';
-
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.groups.shop');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.resources.product.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.resources.product.plural');
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -22,32 +22,33 @@ class ProductsTable
                     ->collection('gallery')
                     ->conversion('thumb')
                     ->limit(1)
-                    ->label(''),
+                    ->label(__('admin.fields.image')),
 
                 TextColumn::make('name')
+                    ->label(__('admin.fields.name'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('category.name')
-                    ->label('Category')
-                    ->toggleable(),
+                    ->label(__('admin.fields.category')),
 
                 TextColumn::make('price')
+                    ->label(__('admin.fields.price'))
                     ->formatStateUsing(fn ($state) => Money::format($state))
                     ->sortable(),
 
                 TextColumn::make('stock')
+                    ->label(__('admin.fields.stock'))
                     ->placeholder('∞')
-                    ->sortable()
-                    ->toggleable(),
+                    ->sortable(),
 
                 IconColumn::make('is_active')
                     ->boolean()
-                    ->label('Active'),
+                    ->label(__('admin.fields.active')),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                TernaryFilter::make('is_active')->label('Active'),
+                TernaryFilter::make('is_active')->label(__('admin.fields.active')),
             ])
             ->recordActions([
                 EditAction::make(),

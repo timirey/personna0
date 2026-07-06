@@ -6,6 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -47,6 +48,12 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
             ])
+            // Panel UI language (RU default) + switcher in the user menu.
+            ->userMenuItems([
+                MenuItem::make()->label('Русский')->icon('heroicon-o-language')->url(fn () => route('admin.locale', 'ru')),
+                MenuItem::make()->label('Română')->icon('heroicon-o-language')->url(fn () => route('admin.locale', 'ro')),
+                MenuItem::make()->label('English')->icon('heroicon-o-language')->url(fn () => route('admin.locale', 'en')),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -57,6 +64,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                \App\Http\Middleware\SetAdminLocale::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

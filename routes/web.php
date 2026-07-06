@@ -15,6 +15,13 @@ Route::get('/', LocaleRedirectController::class);
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
+// Admin panel UI language switch (RU/EN/RO) — sets a cookie, returns to admin.
+Route::get('/admin-language/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, config('locales.supported'), true), 404);
+
+    return back()->withCookie(cookie()->forever('admin_locale', $locale));
+})->name('admin.locale');
+
 // Locale-prefixed storefront. Every public URL lives under /{ro|ru|en}/...
 Route::prefix('{locale}')->middleware('setlocale')->group(function () {
     Route::get('/', [CatalogueController::class, 'index'])->name('catalogue');

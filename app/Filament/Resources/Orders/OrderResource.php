@@ -21,11 +21,24 @@ class OrderResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Shop';
-
     protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'reference';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.groups.shop');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.resources.order.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.resources.order.plural');
+    }
 
     public static function canCreate(): bool
     {

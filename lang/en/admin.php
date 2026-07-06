@@ -1,0 +1,60 @@
+<?php
+
+return [
+    'groups' => ['shop' => 'Shop'],
+    'nav' => ['settings' => 'Settings'],
+    'settings' => ['title' => 'Shop settings'],
+
+    'resources' => [
+        'product' => ['label' => 'Product', 'plural' => 'Products'],
+        'category' => ['label' => 'Category', 'plural' => 'Categories'],
+        'order' => ['label' => 'Order', 'plural' => 'Orders'],
+    ],
+
+    'order' => ['items' => 'Items'],
+
+    'fields' => [
+        'name' => 'Name',
+        'slug' => 'Slug',
+        'sort' => 'Sort',
+        'active' => 'Active',
+        'active_visible' => 'Active (visible in shop)',
+        'category' => 'Category',
+        'description' => 'Description',
+        'price' => 'Price',
+        'stock' => 'Stock',
+        'sizes' => 'Sizes',
+        'gallery' => 'Photos',
+        'image' => 'Image',
+        'meta_title' => 'SEO title',
+        'meta_description' => 'SEO description',
+        'reference' => 'Reference',
+        'customer' => 'Customer',
+        'phone' => 'Phone',
+        'total' => 'Total',
+        'status' => 'Status',
+        'date' => 'Date',
+        'language' => 'Language',
+        'qty' => 'Qty',
+        'unit_price' => 'Unit price',
+        'line_total' => 'Line total',
+        'product' => 'Product',
+        'currency' => 'Currency',
+        'telegram_token' => 'Telegram bot token',
+        'telegram_chat' => 'Telegram chat ID',
+        'hero_image' => 'Homepage hero image',
+        'instagram' => 'Instagram URL',
+        'contact_phone' => 'Contact phone',
+        'contact_email' => 'Contact email',
+        'address' => 'Address',
+    ],
+
+    'help' => [
+        'slug' => 'Used in the URL.',
+        'stock' => 'Leave empty for unlimited stock.',
+        'meta_title' => 'SEO title (per language).',
+        'meta_description' => 'SEO description (per language).',
+        'currency' => 'Currency code, e.g. MDL, EUR, USD.',
+        'hero_image' => 'Shown beside the slogan on the homepage. Leave blank to hide it.',
+    ],
+];

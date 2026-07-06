@@ -16,16 +16,17 @@ class CategoriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('admin.fields.name'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('sort')
-                    ->sortable()
-                    ->toggleable(),
+                    ->label(__('admin.fields.sort'))
+                    ->sortable(),
 
                 IconColumn::make('is_active')
                     ->boolean()
-                    ->label('Active'),
+                    ->label(__('admin.fields.active')),
             ])
             ->defaultSort('sort')
             ->recordActions([

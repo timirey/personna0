@@ -24,11 +24,24 @@ class CategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Shop';
-
     protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.groups.shop');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.resources.category.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.resources.category.plural');
+    }
 
     public static function form(Schema $schema): Schema
     {

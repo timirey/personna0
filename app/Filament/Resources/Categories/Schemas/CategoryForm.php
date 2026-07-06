@@ -14,7 +14,7 @@ class CategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label(__('shop.checkout.name'))
+                    ->label(__('admin.fields.name'))
                     ->required()
                     ->maxLength(120)
                     ->live(onBlur: true)
@@ -23,17 +23,19 @@ class CategoryForm
                     }),
 
                 TextInput::make('slug')
+                    ->label(__('admin.fields.slug'))
                     ->required()
                     ->maxLength(140)
                     ->unique(ignoreRecord: true)
-                    ->helperText('Used in the catalogue URL.'),
+                    ->helperText(__('admin.help.slug')),
 
                 TextInput::make('sort')
+                    ->label(__('admin.fields.sort'))
                     ->numeric()
                     ->default(0),
 
                 Toggle::make('is_active')
-                    ->label('Active')
+                    ->label(__('admin.fields.active'))
                     ->default(true),
             ]);
     }

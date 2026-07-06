@@ -22,33 +22,37 @@ class OrdersTable
         return $table
             ->columns([
                 TextColumn::make('reference')
+                    ->label(__('admin.fields.reference'))
                     ->weight('bold')
                     ->searchable(),
 
                 TextColumn::make('customer_name')
+                    ->label(__('admin.fields.customer'))
                     ->searchable(),
 
                 TextColumn::make('customer_phone')
+                    ->label(__('admin.fields.phone'))
                     ->searchable()
-                    ->copyable()
-                    ->toggleable(),
+                    ->copyable(),
 
                 TextColumn::make('total')
+                    ->label(__('admin.fields.total'))
                     ->formatStateUsing(fn ($state) => Money::format($state))
                     ->sortable(),
 
                 SelectColumn::make('status')
+                    ->label(__('admin.fields.status'))
                     ->options($statuses)
                     ->selectablePlaceholder(false),
 
                 TextColumn::make('created_at')
+                    ->label(__('admin.fields.date'))
                     ->dateTime('d M Y, H:i')
-                    ->sortable()
-                    ->toggleable(),
+                    ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                SelectFilter::make('status')->options($statuses),
+                SelectFilter::make('status')->label(__('admin.fields.status'))->options($statuses),
             ])
             ->recordActions([
                 ViewAction::make(),

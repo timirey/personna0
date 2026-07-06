@@ -1,0 +1,60 @@
+<?php
+
+return [
+    'groups' => ['shop' => 'Магазин'],
+    'nav' => ['settings' => 'Настройки'],
+    'settings' => ['title' => 'Настройки магазина'],
+
+    'resources' => [
+        'product' => ['label' => 'Товар', 'plural' => 'Товары'],
+        'category' => ['label' => 'Категория', 'plural' => 'Категории'],
+        'order' => ['label' => 'Заказ', 'plural' => 'Заказы'],
+    ],
+
+    'order' => ['items' => 'Позиции'],
+
+    'fields' => [
+        'name' => 'Название',
+        'slug' => 'Слаг',
+        'sort' => 'Порядок',
+        'active' => 'Активен',
+        'active_visible' => 'Активен (виден в магазине)',
+        'category' => 'Категория',
+        'description' => 'Описание',
+        'price' => 'Цена',
+        'stock' => 'Остаток',
+        'sizes' => 'Размеры',
+        'gallery' => 'Фотографии',
+        'image' => 'Фото',
+        'meta_title' => 'SEO-заголовок',
+        'meta_description' => 'SEO-описание',
+        'reference' => 'Номер',
+        'customer' => 'Клиент',
+        'phone' => 'Телефон',
+        'total' => 'Сумма',
+        'status' => 'Статус',
+        'date' => 'Дата',
+        'language' => 'Язык',
+        'qty' => 'Кол-во',
+        'unit_price' => 'Цена за шт.',
+        'line_total' => 'Сумма',
+        'product' => 'Товар',
+        'currency' => 'Валюта',
+        'telegram_token' => 'Токен Telegram-бота',
+        'telegram_chat' => 'ID чата Telegram',
+        'hero_image' => 'Изображение на главной',
+        'instagram' => 'Ссылка Instagram',
+        'contact_phone' => 'Контактный телефон',
+        'contact_email' => 'Контактный e-mail',
+        'address' => 'Адрес',
+    ],
+
+    'help' => [
+        'slug' => 'Используется в URL.',
+        'stock' => 'Оставьте пустым для неограниченного остатка.',
+        'meta_title' => 'SEO-заголовок (для каждого языка).',
+        'meta_description' => 'SEO-описание (для каждого языка).',
+        'currency' => 'Код валюты, напр. MDL, EUR, USD.',
+        'hero_image' => 'Показывается рядом со слоганом на главной. Пусто — скрыть.',
+    ],
+];

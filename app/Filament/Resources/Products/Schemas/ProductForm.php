@@ -20,6 +20,7 @@ class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('admin.fields.name'))
                     ->required()
                     ->maxLength(150)
                     ->live(onBlur: true)
@@ -28,33 +29,38 @@ class ProductForm
                     }),
 
                 TextInput::make('slug')
+                    ->label(__('admin.fields.slug'))
                     ->required()
                     ->maxLength(160)
                     ->unique(ignoreRecord: true)
-                    ->helperText('Used in the product URL (shared across languages).'),
+                    ->helperText(__('admin.help.slug')),
 
                 Select::make('category_id')
-                    ->label('Category')
+                    ->label(__('admin.fields.category'))
                     ->required()
                     ->native(false)
                     ->options(fn () => Category::query()->active()->orderBy('sort')->get()->pluck('name', 'id')),
 
                 Textarea::make('description')
+                    ->label(__('admin.fields.description'))
                     ->rows(5)
                     ->columnSpanFull(),
 
                 TextInput::make('price')
+                    ->label(__('admin.fields.price'))
                     ->numeric()
                     ->required()
                     ->minValue(0)
                     ->prefix(Money::currency()),
 
                 TextInput::make('stock')
+                    ->label(__('admin.fields.stock'))
                     ->numeric()
                     ->minValue(0)
-                    ->helperText('Leave empty for unlimited stock.'),
+                    ->helperText(__('admin.help.stock')),
 
                 CheckboxList::make('sizes')
+                    ->label(__('admin.fields.sizes'))
                     ->options([
                         'XS' => 'XS', 'S' => 'S', 'M' => 'M',
                         'L' => 'L', 'XL' => 'XL', 'XXL' => 'XXL',
@@ -63,6 +69,7 @@ class ProductForm
                     ->columnSpanFull(),
 
                 SpatieMediaLibraryFileUpload::make('gallery')
+                    ->label(__('admin.fields.gallery'))
                     ->collection('gallery')
                     ->multiple()
                     ->reorderable()
@@ -71,17 +78,19 @@ class ProductForm
                     ->columnSpanFull(),
 
                 TextInput::make('meta_title')
+                    ->label(__('admin.fields.meta_title'))
                     ->maxLength(160)
-                    ->helperText('SEO title (per language).'),
+                    ->helperText(__('admin.help.meta_title')),
 
                 Textarea::make('meta_description')
+                    ->label(__('admin.fields.meta_description'))
                     ->rows(2)
                     ->maxLength(255)
-                    ->helperText('SEO description (per language).')
+                    ->helperText(__('admin.help.meta_description'))
                     ->columnSpanFull(),
 
                 Toggle::make('is_active')
-                    ->label('Active (visible in shop)')
+                    ->label(__('admin.fields.active_visible'))
                     ->default(true),
             ]);
     }

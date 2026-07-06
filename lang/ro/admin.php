@@ -1,0 +1,60 @@
+<?php
+
+return [
+    'groups' => ['shop' => 'Magazin'],
+    'nav' => ['settings' => 'Setări'],
+    'settings' => ['title' => 'Setările magazinului'],
+
+    'resources' => [
+        'product' => ['label' => 'Produs', 'plural' => 'Produse'],
+        'category' => ['label' => 'Categorie', 'plural' => 'Categorii'],
+        'order' => ['label' => 'Comandă', 'plural' => 'Comenzi'],
+    ],
+
+    'order' => ['items' => 'Articole'],
+
+    'fields' => [
+        'name' => 'Denumire',
+        'slug' => 'Slug',
+        'sort' => 'Ordine',
+        'active' => 'Activ',
+        'active_visible' => 'Activ (vizibil în magazin)',
+        'category' => 'Categorie',
+        'description' => 'Descriere',
+        'price' => 'Preț',
+        'stock' => 'Stoc',
+        'sizes' => 'Mărimi',
+        'gallery' => 'Fotografii',
+        'image' => 'Imagine',
+        'meta_title' => 'Titlu SEO',
+        'meta_description' => 'Descriere SEO',
+        'reference' => 'Referință',
+        'customer' => 'Client',
+        'phone' => 'Telefon',
+        'total' => 'Total',
+        'status' => 'Status',
+        'date' => 'Dată',
+        'language' => 'Limbă',
+        'qty' => 'Cant.',
+        'unit_price' => 'Preț unitar',
+        'line_total' => 'Total',
+        'product' => 'Produs',
+        'currency' => 'Valută',
+        'telegram_token' => 'Token bot Telegram',
+        'telegram_chat' => 'ID chat Telegram',
+        'hero_image' => 'Imagine pe prima pagină',
+        'instagram' => 'Link Instagram',
+        'contact_phone' => 'Telefon de contact',
+        'contact_email' => 'E-mail de contact',
+        'address' => 'Adresă',
+    ],
+
+    'help' => [
+        'slug' => 'Folosit în URL.',
+        'stock' => 'Lăsați gol pentru stoc nelimitat.',
+        'meta_title' => 'Titlu SEO (pentru fiecare limbă).',
+        'meta_description' => 'Descriere SEO (pentru fiecare limbă).',
+        'currency' => 'Cod valutar, ex. MDL, EUR, USD.',
+        'hero_image' => 'Afișată lângă slogan pe prima pagină. Gol — ascunsă.',
+    ],
+];

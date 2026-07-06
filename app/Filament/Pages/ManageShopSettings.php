@@ -16,18 +16,21 @@ class ManageShopSettings extends SettingsPage
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Shop';
-
     protected static ?int $navigationSort = 4;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.groups.shop');
+    }
 
     public static function getNavigationLabel(): string
     {
-        return 'Settings';
+        return __('admin.nav.settings');
     }
 
     public function getTitle(): string
     {
-        return 'Shop settings';
+        return __('admin.settings.title');
     }
 
     public function form(Schema $schema): Schema
@@ -35,32 +38,36 @@ class ManageShopSettings extends SettingsPage
         return $schema
             ->components([
                 TextInput::make('currency')
+                    ->label(__('admin.fields.currency'))
                     ->required()
                     ->maxLength(3)
-                    ->helperText('Currency code, e.g. MDL, EUR, USD.'),
+                    ->helperText(__('admin.help.currency')),
 
                 TextInput::make('telegram_bot_token')
-                    ->label('Telegram bot token')
+                    ->label(__('admin.fields.telegram_token'))
                     ->password()
                     ->revealable(),
 
                 TextInput::make('telegram_chat_id')
-                    ->label('Telegram chat ID'),
+                    ->label(__('admin.fields.telegram_chat')),
 
                 TextInput::make('hero_image')
-                    ->label('Homepage hero image (URL or /path)')
-                    ->helperText('Shown beside the slogan on the homepage. Leave blank to hide it.'),
+                    ->label(__('admin.fields.hero_image'))
+                    ->helperText(__('admin.help.hero_image')),
 
                 TextInput::make('instagram_url')
-                    ->label('Instagram URL')
+                    ->label(__('admin.fields.instagram'))
                     ->url(),
 
-                TextInput::make('contact_phone'),
+                TextInput::make('contact_phone')
+                    ->label(__('admin.fields.contact_phone')),
 
                 TextInput::make('contact_email')
+                    ->label(__('admin.fields.contact_email'))
                     ->email(),
 
-                TextInput::make('address'),
+                TextInput::make('address')
+                    ->label(__('admin.fields.address')),
             ]);
     }
 }
