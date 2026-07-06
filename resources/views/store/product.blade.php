@@ -18,38 +18,6 @@
     @endif
 @endpush
 
-@push('head')
-    <script type="application/ld+json">
-        {!! json_encode(array_filter([
-            '@context' => 'https://schema.org',
-            '@type' => 'Product',
-            'name' => $product->name,
-            'description' => strip_tags((string) $product->description),
-            'sku' => 'PN-'.$product->id,
-            'image' => $ogImage ?: null,
-            'brand' => ['@type' => 'Brand', 'name' => 'Personna0'],
-            'offers' => [
-                '@type' => 'Offer',
-                'price' => number_format((float) $product->price, 2, '.', ''),
-                'priceCurrency' => $currency,
-                'availability' => $product->isSoldOut() ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
-                'url' => $canonical,
-            ],
-        ]), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
-    </script>
-    <script type="application/ld+json">
-        {!! json_encode([
-            '@context' => 'https://schema.org',
-            '@type' => 'BreadcrumbList',
-            'itemListElement' => collect([
-                ['name' => __('shop.nav.shop'), 'item' => route('catalogue', $locale)],
-                ...($product->category ? [['name' => $product->category->name, 'item' => route('catalogue', ['locale' => $locale, 'category' => $product->category->slug])]] : []),
-                ['name' => $product->name, 'item' => $canonical],
-            ])->map(fn ($c, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $c['name'], 'item' => $c['item']])->all(),
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
-    </script>
-@endpush
-
 @section('content')
     <div class="wrap product">
         <nav class="crumbs" aria-label="Breadcrumb">
@@ -59,26 +27,41 @@
         </nav>
 
         <div class="product__grid">
-            <div class="product__gallery">
+            <div class="product__gallery" x-data="gallery()">
                 @if ($media->isNotEmpty())
-                    @php $first = $media->first(); @endphp
-                    <img class="product__main" id="product-main"
-                         src="{{ $first->getUrl('full') }}"
-                         srcset="{{ $first->getUrl('card') }} 800w, {{ $first->getUrl('full') }} 1600w"
-                         sizes="(max-width: 860px) 100vw, 620px"
-                         width="800" height="1000" alt="{{ $product->name }}"
-                         fetchpriority="high" decoding="async">
+                    <div class="gallery__track" x-ref="track">
+                        @foreach ($media as $m)
+                            <div class="gallery__slide">
+                                <img src="{{ $m->getUrl('full') }}"
+                                     srcset="{{ $m->getUrl('card') }} 800w, {{ $m->getUrl('full') }} 1600w"
+                                     sizes="(max-width: 860px) 100vw, 620px"
+                                     width="800" height="1000" alt="{{ $product->name }}"
+                                     @if ($loop->first) fetchpriority="high" @else loading="lazy" @endif
+                                     decoding="async">
+                            </div>
+                        @endforeach
+                    </div>
+
                     @if ($media->count() > 1)
+                        <div class="gallery__dots" aria-hidden="true">
+                            @foreach ($media as $m)
+                                <button type="button" class="gallery__dot"
+                                        :class="{ 'is-active': active === {{ $loop->index }} }"
+                                        @click="go({{ $loop->index }})"></button>
+                            @endforeach
+                        </div>
+
                         <div class="product__thumbs">
                             @foreach ($media as $m)
                                 <img src="{{ $m->getUrl('thumb') }}" width="80" height="100" loading="lazy"
                                      alt="{{ $product->name }}" class="product__thumb"
-                                     data-full="{{ $m->getUrl('full') }}" data-card="{{ $m->getUrl('card') }}">
+                                     :class="{ 'is-active': active === {{ $loop->index }} }"
+                                     @click="go({{ $loop->index }})">
                             @endforeach
                         </div>
                     @endif
                 @else
-                    <div class="product-img product-img--ph"><span>Personna0</span></div>
+                    <div class="product-img product-img--ph"><span>Personna</span></div>
                 @endif
             </div>
 
@@ -93,7 +76,8 @@
                 @if ($product->isSoldOut())
                     <p class="soldout">{{ __('shop.product.sold_out') }}</p>
                 @else
-                    <form method="POST" action="{{ route('cart.add', $locale) }}" class="add-form">
+                    <form method="POST" action="{{ route('cart.add', $locale) }}" class="add-form"
+                          x-data="addToCart()" @submit.prevent="submit">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -118,10 +102,45 @@
                             <input id="qty" type="number" name="qty" value="1" min="1" max="99" inputmode="numeric">
                         </div>
 
-                        <button type="submit" class="btn btn--block">{{ __('shop.product.add_to_cart') }}</button>
+                        <button type="submit" class="btn btn--block" :class="{ 'is-added': state === 'added' }"
+                                :disabled="state === 'loading'">
+                            <span x-show="state !== 'added'">{{ __('shop.product.add_to_cart') }}</span>
+                            <span x-show="state === 'added'" style="display:none">{{ __('shop.cart.added') }} ✓</span>
+                        </button>
                     </form>
                 @endif
             </div>
         </div>
     </div>
+
+    {{-- JSON-LD in the body so Turbo swaps it cleanly on each visit (no stale/duplicate). --}}
+    <script type="application/ld+json">
+        {!! json_encode(array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => $product->name,
+            'description' => strip_tags((string) $product->description),
+            'sku' => 'PN-'.$product->id,
+            'image' => $ogImage ?: null,
+            'brand' => ['@type' => 'Brand', 'name' => 'Personna'],
+            'offers' => [
+                '@type' => 'Offer',
+                'price' => number_format((float) $product->price, 2, '.', ''),
+                'priceCurrency' => $currency,
+                'availability' => $product->isSoldOut() ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+                'url' => $canonical,
+            ],
+        ]), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => collect([
+                ['name' => __('shop.nav.shop'), 'item' => route('catalogue', $locale)],
+                ...($product->category ? [['name' => $product->category->name, 'item' => route('catalogue', ['locale' => $locale, 'category' => $product->category->slug])]] : []),
+                ['name' => $product->name, 'item' => $canonical],
+            ])->map(fn ($c, $i) => ['@type' => 'ListItem', 'position' => $i + 1, 'name' => $c['name'], 'item' => $c['item']])->all(),
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
 @endsection

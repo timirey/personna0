@@ -1,6 +1,29 @@
 <?php
 
 use App\Models\Product;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+
+it('renders a swipeable gallery slide per image with dots', function () {
+    Storage::fake('public');
+    $product = Product::factory()->create(['slug' => 'gallery-tee', 'name' => ['en' => 'GalleryTee']]);
+    $product->addMedia(UploadedFile::fake()->image('a.jpg', 800, 1000))->toMediaCollection('gallery');
+    $product->addMedia(UploadedFile::fake()->image('b.jpg', 800, 1000))->toMediaCollection('gallery');
+
+    $response = $this->get('/en/product/gallery-tee')->assertOk();
+
+    expect(substr_count($response->getContent(), 'gallery__slide'))->toBe(2);
+    $response->assertSee('gallery__dot', false);
+});
+
+it('shows the brand placeholder when a product has no image', function () {
+    Product::factory()->create(['slug' => 'no-img', 'name' => ['en' => 'NoImg']]);
+
+    $this->get('/en/product/no-img')
+        ->assertOk()
+        ->assertSee('product-img--ph', false)
+        ->assertSee('Personna', false);
+});
 
 it('renders sizes and the add-to-cart form for an in-stock product', function () {
     Product::factory()->withStock(5)->create([
