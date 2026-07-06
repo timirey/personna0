@@ -1,20 +1,23 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import vue from '@vitejs/plugin-vue';
 
-// Storefront assets only. The Filament admin ships its own precompiled
-// Tailwind/Alpine bundle, so we keep the public site deliberately lean:
-// hand-written CSS + self-hosted variable fonts (Fraunces + Manrope),
-// no Tailwind, near-zero JS — tuned for PageSpeed / Core Web Vitals.
+// Inertia + Vue 3 storefront (client + SSR). Bespoke CSS is imported inside
+// resources/js/app.js, so the Laravel Vite plugin ships it with the JS entry.
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: ['resources/js/app.js'],
+            ssr: 'resources/js/ssr.js',
             refresh: true,
         }),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
+        }),
     ],
-    server: {
-        watch: {
-            ignored: ['**/storage/framework/views/**'],
-        },
-    },
 });

@@ -1,0 +1,19 @@
+{
+  "\u0000rolldown/runtime.js": [],
+  "resources/js/Layout.vue": [],
+  "resources/js/Pages/Cart.vue": [],
+  "resources/js/Pages/Catalogue.vue": [],
+  "resources/js/Pages/Checkout.vue": [],
+  "resources/js/Pages/Product.vue": [],
+  "resources/js/Pages/Success.vue": [],
+  "resources/js/components/Gallery.vue": [],
+  "resources/js/components/JsonLd.vue": [],
+  "resources/js/components/LanguageSwitcher.vue": [],
+  "resources/js/components/ProductCard.vue": [],
+  "resources/js/components/SeoHead.vue": [],
+  "resources/js/components/Toasts.vue": [],
+  "resources/js/lib/i18n.js": [],
+  "resources/js/lib/resolve.js": [],
+  "resources/js/lib/toasts.js": [],
+  "resources/js/ssr.js": []
+}

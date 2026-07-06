@@ -6,24 +6,29 @@ use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\Product;
 use App\Services\Cart;
-use Illuminate\Contracts\View\View;
+use App\Support\CartPresenter;
+use App\Support\Money;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class CheckoutController extends Controller
 {
-    public function show(Cart $cart): View|RedirectResponse
+    public function show(Cart $cart): Response|RedirectResponse
     {
         if ($cart->isEmpty()) {
             return redirect()->route('catalogue', app()->getLocale());
         }
 
-        return view('store.checkout', [
-            'rows' => $cart->detailed(),
+        return Inertia::render('Checkout', [
+            'rows' => CartPresenter::rows($cart, app()->getLocale()),
             'total' => $cart->total(),
+            'totalFormatted' => Money::format($cart->total()),
+            'title' => __('shop.checkout.title'),
         ]);
     }
 
@@ -48,7 +53,6 @@ class CheckoutController extends Controller
         $order = DB::transaction(function () use ($data, $cart, $locale) {
             $rows = $cart->detailed();
 
-            // Lock the products so concurrent checkouts can't oversell.
             $locked = Product::query()
                 ->whereIn('id', $rows->pluck('product.id'))
                 ->lockForUpdate()
@@ -100,11 +104,18 @@ class CheckoutController extends Controller
         return redirect()->route('order.success', [$locale, $order->reference]);
     }
 
-    public function success(string $locale, string $reference): View
+    public function success(string $locale, string $reference): Response
     {
         $order = Order::where('reference', $reference)->with('items')->firstOrFail();
 
-        return view('store.success', compact('order'));
+        return Inertia::render('Success', [
+            'order' => [
+                'reference' => $order->reference,
+                'totalFormatted' => Money::format($order->total),
+                'items' => CartPresenter::orderItems($order),
+            ],
+            'title' => __('shop.success.title'),
+        ]);
     }
 
     protected function makeReference(): string

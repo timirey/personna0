@@ -16,18 +16,6 @@ it('adds a product to the cart', function () {
         ->and(session('cart')[$product->id.':M']['qty'])->toBe(2);
 });
 
-it('returns JSON with the cart count for an XHR add', function () {
-    $product = Product::factory()->create();
-
-    $this->postJson('/ro/cart', [
-        'product_id' => $product->id,
-        'size' => 'M',
-        'qty' => 2,
-    ])->assertOk()->assertJson(['ok' => true, 'count' => 2]);
-
-    expect(session('cart'))->toHaveKey($product->id.':M');
-});
-
 it('requires a size when the product defines sizes', function () {
     $product = Product::factory()->create(); // default sizes XS..XXL
 

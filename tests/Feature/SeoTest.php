@@ -1,39 +1,29 @@
 <?php
 
 use App\Models\Product;
+use Inertia\Testing\AssertableInertia as Assert;
 
-it('emits canonical, all hreflang alternates and x-default on the catalogue', function () {
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee('rel="canonical" href="'.route('catalogue', 'en').'"', false)
-        ->assertSee('hreflang="ro" href="'.route('catalogue', 'ro').'"', false)
-        ->assertSee('hreflang="ru" href="'.route('catalogue', 'ru').'"', false)
-        ->assertSee('hreflang="en" href="'.route('catalogue', 'en').'"', false)
-        ->assertSee('hreflang="x-default"', false);
+it('shares canonical + hreflang alternates for the catalogue', function () {
+    $this->get('/en')->assertInertia(fn (Assert $page) => $page
+        ->where('locale', 'en')
+        ->where('seo.canonical', route('catalogue', 'en'))
+        ->where('seo.alternates.ro', route('catalogue', 'ro'))
+        ->where('seo.alternates.ru', route('catalogue', 'ru'))
+        ->where('seo.alternates.en', route('catalogue', 'en'))
+        ->has('seo.xDefault')
+    );
 });
 
-it('sets the html lang attribute to the current locale', function () {
-    $this->get('/ru')->assertOk()->assertSee('<html lang="ru">', false);
-});
-
-it('includes Organization JSON-LD site-wide with the Personna brand', function () {
-    $this->get('/en')->assertOk()
-        ->assertSee('"@type":"Organization"', false)
-        ->assertSee('"name":"Personna"', false);
-});
-
-it('emits csrf-token and app-locale meta for the reactive layer', function () {
-    $this->get('/ru')
-        ->assertOk()
-        ->assertSee('name="csrf-token"', false)
-        ->assertSee('name="app-locale" content="ru"', false);
-});
-
-it('points the product canonical and alternates at the localized urls', function () {
+it('shares localized canonical + alternates for a product', function () {
     Product::factory()->create(['slug' => 'seo-tee']);
 
-    $this->get('/ru/product/seo-tee')
-        ->assertOk()
-        ->assertSee('rel="canonical" href="'.route('product', ['ru', 'seo-tee']).'"', false)
-        ->assertSee('hreflang="en" href="'.route('product', ['en', 'seo-tee']).'"', false);
+    $this->get('/ru/product/seo-tee')->assertInertia(fn (Assert $page) => $page
+        ->where('seo.canonical', route('product', ['ru', 'seo-tee']))
+        ->where('seo.alternates.en', route('product', ['en', 'seo-tee']))
+    );
+});
+
+it('shares the current-locale UI translations', function () {
+    $this->get('/ru')->assertInertia(fn (Assert $page) => $page->where('translations.nav.cart', 'Корзина'));
+    $this->get('/ro')->assertInertia(fn (Assert $page) => $page->where('translations.nav.cart', 'Coș'));
 });

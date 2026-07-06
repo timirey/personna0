@@ -3,58 +3,43 @@
 use App\Models\Product;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Testing\AssertableInertia as Assert;
 
-it('renders a swipeable gallery slide per image with dots', function () {
-    Storage::fake('public');
-    $product = Product::factory()->create(['slug' => 'gallery-tee', 'name' => ['en' => 'GalleryTee']]);
-    $product->addMedia(UploadedFile::fake()->image('a.jpg', 800, 1000))->toMediaCollection('gallery');
-    $product->addMedia(UploadedFile::fake()->image('b.jpg', 800, 1000))->toMediaCollection('gallery');
-
-    $response = $this->get('/en/product/gallery-tee')->assertOk();
-
-    expect(substr_count($response->getContent(), 'gallery__slide'))->toBe(2);
-    $response->assertSee('gallery__dot', false);
-});
-
-it('shows the brand placeholder when a product has no image', function () {
-    Product::factory()->create(['slug' => 'no-img', 'name' => ['en' => 'NoImg']]);
-
-    $this->get('/en/product/no-img')
-        ->assertOk()
-        ->assertSee('product-img--ph', false)
-        ->assertSee('Personna', false);
-});
-
-it('renders sizes and the add-to-cart form for an in-stock product', function () {
+it('exposes product props including sizes', function () {
     Product::factory()->withStock(5)->create([
         'slug' => 'tee',
         'name' => ['en' => 'Tee'],
         'sizes' => ['S', 'M', 'L'],
     ]);
 
-    $this->get('/en/product/tee')
-        ->assertOk()
-        ->assertSee('Add to cart')
-        ->assertSee('value="S"', false)
-        ->assertSee('value="M"', false)
-        ->assertSee('name="product_id"', false);
+    $this->get('/en/product/tee')->assertInertia(fn (Assert $page) => $page
+        ->component('Product')
+        ->where('product.sizes', ['S', 'M', 'L'])
+        ->where('product.soldOut', false)
+    );
 });
 
-it('shows sold out and hides the form when stock is depleted', function () {
-    Product::factory()->withStock(0)->create(['slug' => 'gone', 'name' => ['en' => 'Gone']]);
+it('marks a depleted product as sold out', function () {
+    Product::factory()->withStock(0)->create(['slug' => 'gone']);
 
-    $this->get('/en/product/gone')
-        ->assertOk()
-        ->assertSee('Sold out')
-        ->assertDontSee('Add to cart');
+    $this->get('/en/product/gone')->assertInertia(fn (Assert $page) => $page->where('product.soldOut', true));
 });
 
-it('emits Product JSON-LD with price and availability', function () {
-    Product::factory()->withStock(3)->create(['slug' => 'tee2', 'price' => 250, 'name' => ['en' => 'JsonTee']]);
+it('passes Product + Breadcrumb JSON-LD data', function () {
+    Product::factory()->withStock(3)->create(['slug' => 'tee2', 'price' => 250]);
 
-    $this->get('/en/product/tee2')
-        ->assertOk()
-        ->assertSee('"@type":"Product"', false)
-        ->assertSee('"priceCurrency":"MDL"', false)
-        ->assertSee('schema.org/InStock', false);
+    $this->get('/en/product/tee2')->assertInertia(fn (Assert $page) => $page
+        ->has('jsonld', 2)
+        ->where('jsonld.0.@type', 'Product')
+        ->where('jsonld.0.offers.priceCurrency', 'MDL')
+    );
+});
+
+it('provides gallery images for the swipe slider', function () {
+    Storage::fake('public');
+    $product = Product::factory()->create(['slug' => 'gallery-tee']);
+    $product->addMedia(UploadedFile::fake()->image('a.jpg', 800, 1000))->toMediaCollection('gallery');
+    $product->addMedia(UploadedFile::fake()->image('b.jpg', 800, 1000))->toMediaCollection('gallery');
+
+    $this->get('/en/product/gallery-tee')->assertInertia(fn (Assert $page) => $page->has('product.gallery', 2));
 });

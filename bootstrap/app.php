@@ -18,6 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // The locale cookie is non-sensitive and read by the root redirect.
         $middleware->encryptCookies(except: ['locale']);
+
+        // Inertia shared-data middleware on the web group.
+        $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

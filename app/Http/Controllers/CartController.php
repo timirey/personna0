@@ -4,29 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Services\Cart;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
+use App\Support\CartPresenter;
+use App\Support\Money;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class CartController extends Controller
 {
-    public function show(Cart $cart): View
+    public function show(Cart $cart): Response
     {
-        return view('store.cart', [
-            'rows' => $cart->detailed(),
+        return Inertia::render('Cart', [
+            'rows' => CartPresenter::rows($cart, app()->getLocale()),
             'total' => $cart->total(),
+            'totalFormatted' => Money::format($cart->total()),
+            'title' => __('shop.cart.title'),
         ]);
     }
 
-    public function add(Request $request, Cart $cart): RedirectResponse|JsonResponse
+    public function add(Request $request, Cart $cart): RedirectResponse
     {
         // Honeypot: bots fill hidden fields. Silently ignore.
         if (filled($request->input('website'))) {
-            return $request->expectsJson()
-                ? response()->json(['ok' => true, 'count' => $cart->count()])
-                : back();
+            return back();
         }
 
         $data = $request->validate([
@@ -44,14 +46,8 @@ class CartController extends Controller
 
         $cart->add($product->id, $data['size'] ?? null, $data['qty'] ?? 1);
 
-        if ($request->expectsJson()) {
-            return response()->json([
-                'ok' => true,
-                'count' => $cart->count(),
-                'message' => __('shop.cart.added'),
-            ]);
-        }
-
+        // Redirect back: Inertia reloads shared props (cartCount, flash) without a
+        // full reload; the Vue button shows its success state via onSuccess.
         return back()->with('status', __('shop.cart.added'));
     }
 
