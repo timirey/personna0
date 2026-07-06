@@ -67,9 +67,8 @@ class HandleInertiaRequests extends Middleware
             'shop' => fn () => [
                 'currency' => app(ShopSettings::class)->currency,
                 'instagram' => app(ShopSettings::class)->instagram_url,
+                'telegram' => app(ShopSettings::class)->telegram_url,
                 'phone' => app(ShopSettings::class)->contact_phone,
-                'email' => app(ShopSettings::class)->contact_email,
-                'address' => app(ShopSettings::class)->address,
             ],
         ];
     }

@@ -44,6 +44,7 @@ return [
         'telegram_chat' => 'ID чата Telegram',
         'hero_image' => 'Изображение на главной',
         'instagram' => 'Ссылка Instagram',
+        'telegram_url' => 'Ссылка Telegram',
         'contact_phone' => 'Контактный телефон',
         'contact_email' => 'Контактный e-mail',
         'address' => 'Адрес',

@@ -64,6 +64,7 @@ return [
 
     'status' => [
         'new' => 'New',
+        'in_progress' => 'In progress',
         'completed' => 'Completed',
         'cancelled' => 'Cancelled',
     ],

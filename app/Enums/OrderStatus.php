@@ -8,6 +8,7 @@ use Filament\Support\Contracts\HasLabel;
 enum OrderStatus: string implements HasColor, HasLabel
 {
     case New = 'new';
+    case InProgress = 'in_progress';
     case Completed = 'completed';
     case Cancelled = 'cancelled';
 
@@ -20,6 +21,7 @@ enum OrderStatus: string implements HasColor, HasLabel
     {
         return match ($this) {
             self::New => 'warning',
+            self::InProgress => 'info',
             self::Completed => 'success',
             self::Cancelled => 'danger',
         };

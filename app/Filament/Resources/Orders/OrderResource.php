@@ -21,14 +21,9 @@ class OrderResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'reference';
-
-    public static function getNavigationGroup(): ?string
-    {
-        return __('admin.groups.shop');
-    }
 
     public static function getModelLabel(): string
     {

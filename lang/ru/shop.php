@@ -64,6 +64,7 @@ return [
 
     'status' => [
         'new' => 'Новый',
+        'in_progress' => 'В обработке',
         'completed' => 'Выполнен',
         'cancelled' => 'Отменён',
     ],

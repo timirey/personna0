@@ -44,6 +44,7 @@ return [
         'telegram_chat' => 'Telegram chat ID',
         'hero_image' => 'Homepage hero image',
         'instagram' => 'Instagram URL',
+        'telegram_url' => 'Telegram link',
         'contact_phone' => 'Contact phone',
         'contact_email' => 'Contact email',
         'address' => 'Address',

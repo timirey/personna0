@@ -14,10 +14,15 @@ it('exposes login but no registration or password-reset routes', function () {
     $this->get('/admin/password-reset/request')->assertNotFound();
 });
 
-it('lets an authenticated owner reach the panel, resources and settings', function () {
+it('sends the panel root to the orders list (no dashboard)', function () {
     $this->actingAs(User::factory()->create());
 
-    $this->get('/admin')->assertOk();
+    $this->get('/admin')->assertRedirect('/admin/orders');
+});
+
+it('lets an authenticated owner reach the resources and settings', function () {
+    $this->actingAs(User::factory()->create());
+
     $this->get('/admin/products')->assertOk();
     $this->get('/admin/categories')->assertOk();
     $this->get('/admin/orders')->assertOk();

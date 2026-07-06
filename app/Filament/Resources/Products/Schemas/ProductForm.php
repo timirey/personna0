@@ -77,18 +77,6 @@ class ProductForm
                     ->imageEditor()
                     ->columnSpanFull(),
 
-                TextInput::make('meta_title')
-                    ->label(__('admin.fields.meta_title'))
-                    ->maxLength(160)
-                    ->helperText(__('admin.help.meta_title')),
-
-                Textarea::make('meta_description')
-                    ->label(__('admin.fields.meta_description'))
-                    ->rows(2)
-                    ->maxLength(255)
-                    ->helperText(__('admin.help.meta_description'))
-                    ->columnSpanFull(),
-
                 Toggle::make('is_active')
                     ->label(__('admin.fields.active_visible'))
                     ->default(true),

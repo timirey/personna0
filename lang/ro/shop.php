@@ -64,6 +64,7 @@ return [
 
     'status' => [
         'new' => 'Nouă',
+        'in_progress' => 'În procesare',
         'completed' => 'Finalizată',
         'cancelled' => 'Anulată',
     ],

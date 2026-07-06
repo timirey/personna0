@@ -24,14 +24,9 @@ class ProductResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingBag;
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'name';
-
-    public static function getNavigationGroup(): ?string
-    {
-        return __('admin.groups.shop');
-    }
 
     public static function getModelLabel(): string
     {

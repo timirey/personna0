@@ -31,11 +31,6 @@ watch(
         <div class="wrap site-header__inner">
             <Link :href="urls.catalogue" class="wordmark" aria-label="Personna">Personna</Link>
 
-            <nav class="site-nav" aria-label="Primary">
-                <Link :href="urls.catalogue">{{ $t('nav.shop') }}</Link>
-                <a v-if="shop.instagram" :href="shop.instagram" target="_blank" rel="noopener">Instagram</a>
-            </nav>
-
             <div class="site-header__actions">
                 <LanguageSwitcher />
                 <Link :href="urls.cart" class="cart-link" :aria-label="$t('nav.cart')">
@@ -59,9 +54,22 @@ watch(
             <div class="site-footer__contact">
                 <p class="eyebrow">{{ $t('footer.contact') }}</p>
                 <p v-if="shop.phone"><a :href="`tel:${shop.phone}`">{{ shop.phone }}</a></p>
-                <p v-if="shop.email"><a :href="`mailto:${shop.email}`">{{ shop.email }}</a></p>
-                <p v-if="shop.instagram"><a :href="shop.instagram" target="_blank" rel="noopener">Instagram</a></p>
-                <p v-if="shop.address">{{ shop.address }}</p>
+                <div class="socials">
+                    <a v-if="shop.instagram" :href="shop.instagram" target="_blank" rel="noopener" class="social" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                            <rect x="3" y="3" width="18" height="18" rx="5" />
+                            <circle cx="12" cy="12" r="4" />
+                            <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                    <a v-if="shop.telegram" :href="shop.telegram" target="_blank" rel="noopener" class="social" aria-label="Telegram">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                            <path d="M21.94 4.64 18.9 19a1 1 0 0 1-1.61.6l-4.1-3.02-2.03 1.96a.55.55 0 0 1-.94-.35l-.28-4.06 7.4-6.68c.28-.25-.06-.4-.42-.16l-9.14 5.76-3.94-1.23c-.79-.24-.8-.79.18-1.17l15.4-5.94c.66-.25 1.24.16 1.02 1.13z" />
+                        </svg>
+                        <span>Telegram</span>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="wrap site-footer__legal">

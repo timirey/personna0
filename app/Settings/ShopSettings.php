@@ -13,13 +13,12 @@ class ShopSettings extends Settings
     public ?string $telegram_bot_token;
     public ?string $telegram_chat_id;
 
-    /** Contact & social details rendered in the storefront footer/contact. */
+    /** Contact & social details rendered in the storefront footer. */
     public ?string $instagram_url;
+    public ?string $telegram_url;
     public ?string $contact_phone;
-    public ?string $contact_email;
-    public ?string $address;
 
-    /** Homepage hero image (URL or /path). Blank hides the hero image. */
+    /** Homepage hero image (uploaded path or /path). Blank uses the default. */
     public ?string $hero_image;
 
     public static function group(): string

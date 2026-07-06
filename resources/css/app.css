@@ -815,6 +815,21 @@ main {
 .site-footer__contact a:hover {
     text-decoration: underline;
 }
+.socials {
+    display: flex;
+    gap: 1.1rem;
+    margin-top: 0.6rem;
+}
+.social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink-2);
+}
+.social:hover {
+    color: var(--ink);
+    text-decoration: none;
+}
 .site-footer__legal {
     border-top: 1px solid var(--line);
     padding-block: 1.2rem;

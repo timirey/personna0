@@ -29,11 +29,6 @@ class CategoryForm
                     ->unique(ignoreRecord: true)
                     ->helperText(__('admin.help.slug')),
 
-                TextInput::make('sort')
-                    ->label(__('admin.fields.sort'))
-                    ->numeric()
-                    ->default(0),
-
                 Toggle::make('is_active')
                     ->label(__('admin.fields.active'))
                     ->default(true),

@@ -924,17 +924,7 @@ var _sfc_main = {
 				}),
 				_: 1
 			}, _parent));
-			_push(`<nav class="site-nav" aria-label="Primary">`);
-			_push(ssrRenderComponent(unref(Link), { href: urls.value.catalogue }, {
-				default: withCtx((_, _push, _parent, _scopeId) => {
-					if (_push) _push(`${ssrInterpolate(_ctx.$t("nav.shop"))}`);
-					else return [createTextVNode(toDisplayString(_ctx.$t("nav.shop")), 1)];
-				}),
-				_: 1
-			}, _parent));
-			if (shop.value.instagram) _push(`<a${ssrRenderAttr("href", shop.value.instagram)} target="_blank" rel="noopener">Instagram</a>`);
-			else _push(`<!---->`);
-			_push(`</nav><div class="site-header__actions">`);
+			_push(`<div class="site-header__actions">`);
 			_push(ssrRenderComponent(_sfc_main$2, null, null, _parent));
 			_push(ssrRenderComponent(unref(Link), {
 				href: urls.value.cart,
@@ -958,13 +948,12 @@ var _sfc_main = {
 			_push(`</main><footer class="site-footer"><div class="wrap site-footer__inner"><div><p class="wordmark wordmark--sm">Personna</p><p class="site-footer__tagline">${ssrInterpolate(_ctx.$t("tagline"))}</p></div><div class="site-footer__contact"><p class="eyebrow">${ssrInterpolate(_ctx.$t("footer.contact"))}</p>`);
 			if (shop.value.phone) _push(`<p><a${ssrRenderAttr("href", `tel:${shop.value.phone}`)}>${ssrInterpolate(shop.value.phone)}</a></p>`);
 			else _push(`<!---->`);
-			if (shop.value.email) _push(`<p><a${ssrRenderAttr("href", `mailto:${shop.value.email}`)}>${ssrInterpolate(shop.value.email)}</a></p>`);
+			_push(`<div class="socials">`);
+			if (shop.value.instagram) _push(`<a${ssrRenderAttr("href", shop.value.instagram)} target="_blank" rel="noopener" class="social" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"></circle></svg><span>Instagram</span></a>`);
 			else _push(`<!---->`);
-			if (shop.value.instagram) _push(`<p><a${ssrRenderAttr("href", shop.value.instagram)} target="_blank" rel="noopener">Instagram</a></p>`);
+			if (shop.value.telegram) _push(`<a${ssrRenderAttr("href", shop.value.telegram)} target="_blank" rel="noopener" class="social" aria-label="Telegram"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M21.94 4.64 18.9 19a1 1 0 0 1-1.61.6l-4.1-3.02-2.03 1.96a.55.55 0 0 1-.94-.35l-.28-4.06 7.4-6.68c.28-.25-.06-.4-.42-.16l-9.14 5.76-3.94-1.23c-.79-.24-.8-.79.18-1.17l15.4-5.94c.66-.25 1.24.16 1.02 1.13z"></path></svg><span>Telegram</span></a>`);
 			else _push(`<!---->`);
-			if (shop.value.address) _push(`<p>${ssrInterpolate(shop.value.address)}</p>`);
-			else _push(`<!---->`);
-			_push(`</div></div><div class="wrap site-footer__legal"><span>© ${ssrInterpolate(unref(year))} Personna. ${ssrInterpolate(_ctx.$t("footer.rights"))}</span></div></footer>`);
+			_push(`</div></div></div><div class="wrap site-footer__legal"><span>© ${ssrInterpolate(unref(year))} Personna. ${ssrInterpolate(_ctx.$t("footer.rights"))}</span></div></footer>`);
 			_push(ssrRenderComponent(_sfc_main$1, null, null, _parent));
 			_push(`<!--]-->`);
 		};

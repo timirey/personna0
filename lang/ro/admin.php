@@ -44,6 +44,7 @@ return [
         'telegram_chat' => 'ID chat Telegram',
         'hero_image' => 'Imagine pe prima pagină',
         'instagram' => 'Link Instagram',
+        'telegram_url' => 'Link Telegram',
         'contact_phone' => 'Telefon de contact',
         'contact_email' => 'E-mail de contact',
         'address' => 'Adresă',

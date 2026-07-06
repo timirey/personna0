@@ -37,7 +37,7 @@ class CatalogueController extends Controller
             'products' => $products,
             'categories' => $categories,
             'activeCategory' => $activeCategory,
-            'heroImage' => app(\App\Settings\ShopSettings::class)->hero_image ?: null,
+            'heroImage' => $this->heroImageUrl(),
             'title' => __('shop.nav.shop'),
             'description' => __('shop.tagline'),
         ]);
@@ -64,6 +64,21 @@ class CatalogueController extends Controller
             'ogImage' => $detail['image']['card'] ?? null,
             'jsonld' => $this->jsonLd($product, $detail, $current),
         ]);
+    }
+
+    private function heroImageUrl(): string
+    {
+        $hero = app(\App\Settings\ShopSettings::class)->hero_image;
+
+        if (blank($hero)) {
+            return '/images/hero.jpg'; // default brand photo
+        }
+
+        if (str_starts_with($hero, 'http') || str_starts_with($hero, '/')) {
+            return $hero;
+        }
+
+        return \Illuminate\Support\Facades\Storage::disk('public')->url($hero);
     }
 
     private function jsonLd(Product $product, array $detail, string $locale): array

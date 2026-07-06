@@ -20,15 +20,11 @@ class CategoriesTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('sort')
-                    ->label(__('admin.fields.sort'))
-                    ->sortable(),
-
                 IconColumn::make('is_active')
                     ->boolean()
                     ->label(__('admin.fields.active')),
             ])
-            ->defaultSort('sort')
+            ->defaultSort('name')
             ->recordActions([
                 EditAction::make(),
             ])

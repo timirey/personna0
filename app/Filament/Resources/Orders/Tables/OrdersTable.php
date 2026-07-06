@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Orders\Tables;
 use App\Enums\OrderStatus;
 use App\Support\Money;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -40,10 +39,9 @@ class OrdersTable
                     ->formatStateUsing(fn ($state) => Money::format($state))
                     ->sortable(),
 
-                SelectColumn::make('status')
+                TextColumn::make('status')
                     ->label(__('admin.fields.status'))
-                    ->options($statuses)
-                    ->selectablePlaceholder(false),
+                    ->badge(),
 
                 TextColumn::make('created_at')
                     ->label(__('admin.fields.date'))

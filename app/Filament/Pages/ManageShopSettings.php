@@ -4,11 +4,12 @@ namespace App\Filament\Pages;
 
 use App\Settings\ShopSettings;
 use BackedEnum;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use UnitEnum;
 
 class ManageShopSettings extends SettingsPage
 {
@@ -17,11 +18,6 @@ class ManageShopSettings extends SettingsPage
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
     protected static ?int $navigationSort = 4;
-
-    public static function getNavigationGroup(): ?string
-    {
-        return __('admin.groups.shop');
-    }
 
     public static function getNavigationLabel(): string
     {
@@ -37,11 +33,11 @@ class ManageShopSettings extends SettingsPage
     {
         return $schema
             ->components([
-                TextInput::make('currency')
+                Select::make('currency')
                     ->label(__('admin.fields.currency'))
+                    ->options(['MDL' => 'MDL', 'EUR' => 'EUR', 'USD' => 'USD'])
                     ->required()
-                    ->maxLength(3)
-                    ->helperText(__('admin.help.currency')),
+                    ->native(false),
 
                 TextInput::make('telegram_bot_token')
                     ->label(__('admin.fields.telegram_token'))
@@ -51,23 +47,25 @@ class ManageShopSettings extends SettingsPage
                 TextInput::make('telegram_chat_id')
                     ->label(__('admin.fields.telegram_chat')),
 
-                TextInput::make('hero_image')
-                    ->label(__('admin.fields.hero_image'))
-                    ->helperText(__('admin.help.hero_image')),
-
                 TextInput::make('instagram_url')
                     ->label(__('admin.fields.instagram'))
+                    ->url(),
+
+                TextInput::make('telegram_url')
+                    ->label(__('admin.fields.telegram_url'))
                     ->url(),
 
                 TextInput::make('contact_phone')
                     ->label(__('admin.fields.contact_phone')),
 
-                TextInput::make('contact_email')
-                    ->label(__('admin.fields.contact_email'))
-                    ->email(),
-
-                TextInput::make('address')
-                    ->label(__('admin.fields.address')),
+                FileUpload::make('hero_image')
+                    ->label(__('admin.fields.hero_image'))
+                    ->image()
+                    ->imageEditor()
+                    ->disk('public')
+                    ->directory('hero')
+                    ->helperText(__('admin.help.hero_image'))
+                    ->columnSpanFull(),
             ]);
     }
 }
