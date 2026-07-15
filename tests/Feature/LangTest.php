@@ -20,3 +20,13 @@ it('translates order status labels through the enum', function () {
     app()->setLocale('ro');
     expect(OrderStatus::Completed->getLabel())->toBe('Finalizată');
 });
+
+it('resolves validation messages in every supported admin locale', function () {
+    foreach (['en', 'ro', 'ru'] as $locale) {
+        app()->setLocale($locale);
+
+        expect(__('validation.required', [
+            'attribute' => __('validation.attributes.name'),
+        ]))->not->toContain('validation.');
+    }
+});

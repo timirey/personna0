@@ -1,17 +1,36 @@
 {
-  "\u0000rolldown/runtime.js": [],
   "resources/js/Layout.vue": [],
-  "resources/js/Pages/Cart.vue": [],
-  "resources/js/Pages/Catalogue.vue": [],
-  "resources/js/Pages/Checkout.vue": [],
-  "resources/js/Pages/Product.vue": [],
-  "resources/js/Pages/Success.vue": [],
-  "resources/js/components/Gallery.vue": [],
-  "resources/js/components/JsonLd.vue": [],
+  "resources/js/Pages/Cart.vue": [
+    "/build/assets/Cart-AEAK6qS3.js"
+  ],
+  "resources/js/Pages/Catalogue.vue": [
+    "/build/assets/Catalogue-x8Dz75ju.js"
+  ],
+  "resources/js/Pages/Checkout.vue": [
+    "/build/assets/Checkout-CWPXJSuX.js"
+  ],
+  "resources/js/Pages/Product.vue": [
+    "/build/assets/Product-CFVFxkFo.js"
+  ],
+  "resources/js/Pages/Success.vue": [
+    "/build/assets/Success-B9B9Qgq5.js"
+  ],
+  "resources/js/components/Gallery.vue": [
+    "/build/assets/Product-CFVFxkFo.js"
+  ],
+  "resources/js/components/JsonLd.vue": [
+    "/build/assets/Product-CFVFxkFo.js"
+  ],
   "resources/js/components/LanguageSwitcher.vue": [],
-  "resources/js/components/OrderLine.vue": [],
-  "resources/js/components/ProductCard.vue": [],
-  "resources/js/components/SeoHead.vue": [],
+  "resources/js/components/OrderLine.vue": [
+    "/build/assets/OrderLine-Bl60mYck.js"
+  ],
+  "resources/js/components/ProductCard.vue": [
+    "/build/assets/Catalogue-x8Dz75ju.js"
+  ],
+  "resources/js/components/SeoHead.vue": [
+    "/build/assets/SeoHead-B64EwHoA.js"
+  ],
   "resources/js/components/Toasts.vue": [],
   "resources/js/lib/i18n.js": [],
   "resources/js/lib/resolve.js": [],
